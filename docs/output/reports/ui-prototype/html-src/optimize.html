@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ResumeWise · 开始优化</title>
+  <link rel="stylesheet" href="common.css" />
+  <style>
+    .split {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .textarea-wrap {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #FAFBFC;
+      overflow: hidden;
+    }
+    .textarea-wrap textarea {
+      width: 100%;
+      min-height: 380px;
+      border: none;
+      outline: none;
+      resize: vertical;
+      padding: 14px 14px 32px;
+      font-family: "Cascadia Mono", "Consolas", "Microsoft YaHei", monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text);
+      background: transparent;
+    }
+    .char-count {
+      position: absolute;
+      right: 12px;
+      bottom: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .tool-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+    .save-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: #15803D;
+      background: var(--success-bg);
+      border: 1px solid #BBF7D0;
+      border-radius: 6px;
+      padding: 6px 10px;
+    }
+    .job-list { display: flex; flex-direction: column; gap: 10px; }
+    .job-card {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      cursor: pointer;
+      background: #fff;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .job-card:hover { border-color: #C7D0F8; }
+    .job-card.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      box-shadow: 0 0 0 1px var(--primary);
+    }
+    .job-radio {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1.5px solid #C0C4CC;
+      margin-top: 3px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .job-card.selected .job-radio {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+    .job-card.selected .job-radio::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+    }
+    .job-title { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+    .job-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+    .job-tags { display: flex; flex-wrap: wrap; gap: 0; }
+    .job-tags .tag { margin: 0 6px 4px 0; }
+  </style>
+</head>
+<body class="prototype-frame">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo">RW</div>
+        <div class="brand-text">
+          <span class="brand-name">ResumeWise</span>
+          <span class="brand-sub">AI 简历诊断与优化</span>
+        </div>
+      </div>
+      <nav class="nav-tabs">
+        <a href="home.html">首页</a>
+        <a href="optimize.html" class="active">开始优化</a>
+      </nav>
+      <span class="demo-badge">演示模式 · AI Mock</span>
+    </div>
+  </header>
+
+  <div class="steps-bar">
+    <div class="steps-inner">
+      <div class="step active"><span class="num">1</span><span>输入简历</span></div>
+      <div class="step-arrow"></div>
+      <div class="step"><span class="num">2</span><span>AI 诊断</span></div>
+      <div class="step-arrow"></div>
+      <div class="step"><span class="num">3</span><span>优化结果</span></div>
+    </div>
+  </div>
+
+  <main class="page">
+    <div class="page-header">
+      <h1>开始优化</h1>
+      <p>粘贴简历并选择目标岗位，系统将按岗位关键词与 AI 内容综合诊断</p>
+    </div>
+
+    <div class="split">
+      <!-- Left: resume -->
+      <section class="card">
+        <div class="card-title">简历内容</div>
+        <div class="card-desc">请粘贴简历纯文本（不支持 Word/PDF 上传）</div>
+        <div class="textarea-wrap">
+          <textarea readonly>张三 | 计算机科学与技术 | 某某大学 2026 届
+手机：138****0000 | 邮箱：zhangsan@example.com
+
+教育背景
+某某大学 本科 计算机科学与技术 2022.09 - 2026.06
+
+项目经历
+校园二手交易平台 | 负责人
+使用 Vue 和 Spring Boot 完成前后端开发，实现商品发布、检索与下单流程。
+
+技能
+Java、Vue、MySQL、Git</textarea>
+          <span class="char-count">已输入 326 字</span>
+        </div>
+        <div class="tool-row">
+          <button class="btn btn-outline" type="button">使用示例简历</button>
+          <button class="btn btn-text" type="button">清空</button>
+          <span class="text-xs muted" style="margin-left:auto;">示例：计算机专业应届生</span>
+        </div>
+        <div class="save-hint">
+          <svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="8" cy="8" r="6.5"/><path d="M5 8l2 2 4-4"/>
+          </svg>
+          已自动保存到本地，刷新不丢失
+        </div>
+      </section>
+
+      <!-- Right: jobs -->
+      <section class="card">
+        <div class="card-title">选择目标岗位</div>
+        <div class="card-desc">从内置岗位库中单选，系统将按岗位关键词匹配</div>
+        <div class="job-list">
+          <div class="job-card">
+            <div class="job-radio"></div>
+            <div>
+              <div class="job-title">Java 后端开发实习生</div>
+              <div class="job-meta">某科技公司 · 实习</div>
+              <div class="job-tags">
+                <span class="tag tag-gray">Java</span>
+                <span class="tag tag-gray">Spring Boot</span>
+                <span class="tag tag-gray">MySQL</span>
+                <span class="tag tag-gray">Redis</span>
+                <span class="tag tag-gray">微服务</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-card selected">
+            <div class="job-radio"></div>
+            <div>
+              <div class="job-title">前端开发实习生（Vue）</div>
+              <div class="job-meta">某科技公司 · 实习</div>
+              <div class="job-tags">
+                <span class="tag tag-primary">Vue</span>
+                <span class="tag tag-primary">JavaScript</span>
+                <span class="tag tag-primary">Element Plus</span>
+                <span class="tag tag-primary">Git</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-card">
+            <div class="job-radio"></div>
+            <div>
+              <div class="job-title">软件测试实习生</div>
+              <div class="job-meta">某科技公司 · 实习</div>
+              <div class="job-tags">
+                <span class="tag tag-gray">功能测试</span>
+                <span class="tag tag-gray">Selenium</span>
+                <span class="tag tag-gray">接口测试</span>
+                <span class="tag tag-gray">JMeter</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-card">
+            <div class="job-radio"></div>
+            <div>
+              <div class="job-title">产品经理实习生</div>
+              <div class="job-meta">某互联网公司 · 实习</div>
+              <div class="job-tags">
+                <span class="tag tag-gray">需求分析</span>
+                <span class="tag tag-gray">原型设计</span>
+                <span class="tag tag-gray">Axure</span>
+                <span class="tag tag-gray">用户调研</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-card">
+            <div class="job-radio"></div>
+            <div>
+              <div class="job-title">数据分析实习生</div>
+              <div class="job-meta">某数据公司 · 实习</div>
+              <div class="job-tags">
+                <span class="tag tag-gray">SQL</span>
+                <span class="tag tag-gray">Python</span>
+                <span class="tag tag-gray">Excel</span>
+                <span class="tag tag-gray">数据可视化</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="bottom-bar">
+    <div class="bottom-bar-inner">
+      <a class="btn btn-text" href="home.html">← 返回首页</a>
+      <div class="bottom-actions">
+        <a class="btn btn-primary lg" href="review.html">
+          <svg class="icon" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8.5 1.5l1.2 3.4h3.6l-2.9 2.1 1.1 3.5L8.5 8.4 5.5 10.5l1.1-3.5L3.7 4.9h3.6L8.5 1.5z"/>
+          </svg>
+          AI 诊断
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

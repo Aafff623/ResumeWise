@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ResumeWise · AI 诊断</title>
+  <link rel="stylesheet" href="common.css" />
+  <style>
+    .score-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .score-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .score-card.main {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F7F9FF 100%);
+      border-color: #D6DEFA;
+    }
+    .score-card h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+    }
+    .score-num {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .score-num small {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .score-sub {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .score-formula {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--primary-light);
+      border-radius: 6px;
+      padding: 6px 10px;
+    }
+
+    .mid-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .kw-group-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin: 14px 0 8px;
+      color: var(--text-secondary);
+    }
+    .match-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .match-pct {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .summary-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      background: #FAFBFC;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .issue-list { display: flex; flex-direction: column; gap: 10px; }
+    .issue-item {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 14px;
+      align-items: start;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      background: #fff;
+    }
+    .issue-desc { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+    .issue-suggest { font-size: 13px; color: var(--text-secondary); }
+    .issue-suggest::before { content: "建议："; color: var(--text-muted); }
+  </style>
+</head>
+<body class="prototype-frame">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo">RW</div>
+        <div class="brand-text">
+          <span class="brand-name">ResumeWise</span>
+          <span class="brand-sub">AI 简历诊断与优化</span>
+        </div>
+      </div>
+      <nav class="nav-tabs">
+        <a href="home.html">首页</a>
+        <a href="optimize.html">开始优化</a>
+      </nav>
+      <span class="demo-badge">演示模式 · AI Mock</span>
+    </div>
+  </header>
+
+  <div class="steps-bar">
+    <div class="steps-inner">
+      <div class="step done"><span class="num">✓</span><span>输入简历</span></div>
+      <div class="step-arrow"></div>
+      <div class="step active"><span class="num">2</span><span>AI 诊断</span></div>
+      <div class="step-arrow"></div>
+      <div class="step"><span class="num">3</span><span>优化结果</span></div>
+    </div>
+  </div>
+
+  <main class="page">
+    <div class="page-header page-header-row">
+      <div>
+        <h1>AI 诊断结果</h1>
+        <p>当前岗位：<strong>前端开发实习生（Vue）</strong> · 某科技公司</p>
+      </div>
+      <span class="badge-ok">
+        <svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="8" cy="8" r="6.5"/><path d="M5 8l2 2 4-4"/>
+        </svg>
+        诊断完成
+      </span>
+    </div>
+
+    <!-- Scores -->
+    <div class="score-row">
+      <div class="score-card main">
+        <h3>综合评分</h3>
+        <div class="score-ring">
+          <div class="score-ring-inner">
+            <div class="val">78</div>
+            <div class="unit">/ 100</div>
+          </div>
+        </div>
+        <div class="score-formula">关键词匹配 40% + AI 内容 60%</div>
+      </div>
+      <div class="score-card">
+        <h3>关键词匹配分</h3>
+        <div class="score-num">85<small> 分</small></div>
+        <div class="score-sub">后端本地计算 · 可解释、稳定</div>
+      </div>
+      <div class="score-card">
+        <h3>AI 内容分</h3>
+        <div class="score-num">72<small> 分</small></div>
+        <div class="score-sub">大模型评估 · 表达与项目质量</div>
+      </div>
+    </div>
+
+    <!-- Keywords + Summary -->
+    <div class="mid-row">
+      <section class="card">
+        <div class="card-title">关键词覆盖</div>
+        <div class="match-head">
+          <span class="text-sm secondary">岗位匹配度</span>
+          <span class="match-pct">72%</span>
+        </div>
+        <div class="progress mb8"><div class="progress-bar" style="width:72%"></div></div>
+        <div class="kw-group-title">已匹配关键词</div>
+        <div>
+          <span class="tag tag-success">Vue</span>
+          <span class="tag tag-success">JavaScript</span>
+          <span class="tag tag-success">Git</span>
+        </div>
+        <div class="kw-group-title">缺失关键词</div>
+        <div>
+          <span class="tag tag-danger">TypeScript</span>
+          <span class="tag tag-danger">单元测试</span>
+          <span class="tag tag-danger">Webpack</span>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-title">AI 诊断摘要</div>
+        <div class="summary-text">
+          简历具备基础前端技能，但项目描述偏笼统，缺少量化成果与岗位关键词覆盖，建议补充组件化与工程化实践，并将技能栏与「前端开发实习生（Vue）」岗位要求对齐。
+        </div>
+      </section>
+    </div>
+
+    <!-- Issues -->
+    <section class="card">
+      <div class="card-title mb16">诊断问题</div>
+      <div class="issue-list">
+        <div class="issue-item">
+          <span class="tag tag-warning" style="justify-content:center;height:28px;margin:0;">表达问题</span>
+          <div>
+            <div class="issue-desc">项目经历缺少量化数据</div>
+            <div class="issue-suggest">补充用户量、性能提升百分比、迭代周期等可验证指标</div>
+          </div>
+        </div>
+        <div class="issue-item">
+          <span class="tag tag-info" style="justify-content:center;height:28px;margin:0;">项目经历</span>
+          <div>
+            <div class="issue-desc">未体现 Vue 组件化实践</div>
+            <div class="issue-suggest">写明组件拆分、状态管理方案与父子组件通信方式</div>
+          </div>
+        </div>
+        <div class="issue-item">
+          <span class="tag tag-purple" style="justify-content:center;height:28px;margin:0;">技能描述</span>
+          <div>
+            <div class="issue-desc">技能栏堆砌，未与岗位对齐</div>
+            <div class="issue-suggest">突出 Vue3、Element Plus、接口联调，弱化与岗位无关项</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="bottom-bar">
+    <div class="bottom-bar-inner">
+      <div class="bottom-actions">
+        <a class="btn btn-outline" href="optimize.html">返回修改简历</a>
+        <a class="btn btn-text" href="review.html">重新诊断</a>
+      </div>
+      <div class="bottom-actions">
+        <a class="btn btn-primary lg" href="result.html">生成优化版本</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

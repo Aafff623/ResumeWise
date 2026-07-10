@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ResumeWise · AI 分析中</title>
+  <link rel="stylesheet" href="common.css" />
+  <style>
+    .score-row {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .skel-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      min-height: 180px;
+    }
+    .skel {
+      background: linear-gradient(90deg, #EEF0F4 25%, #F7F8FA 50%, #EEF0F4 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 6px;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .skel-title { height: 14px; width: 40%; margin: 0 auto 20px; }
+    .skel-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: 0 auto 16px;
+    }
+    .skel-line { height: 12px; margin: 10px 0; }
+    .skel-line.w60 { width: 60%; }
+    .skel-line.w80 { width: 80%; }
+    .skel-line.w100 { width: 100%; }
+    .mid-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.55);
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .loading-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+      padding: 28px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #E5E7EB;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .loading-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body class="prototype-frame">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo">RW</div>
+        <div class="brand-text">
+          <span class="brand-name">ResumeWise</span>
+          <span class="brand-sub">AI 简历诊断与优化</span>
+        </div>
+      </div>
+      <nav class="nav-tabs">
+        <a href="home.html">首页</a>
+        <a href="optimize.html">开始优化</a>
+      </nav>
+      <span class="demo-badge">演示模式 · AI Mock</span>
+    </div>
+  </header>
+
+  <div class="steps-bar">
+    <div class="steps-inner">
+      <div class="step done"><span class="num">✓</span><span>输入简历</span></div>
+      <div class="step-arrow"></div>
+      <div class="step active"><span class="num">2</span><span>AI 诊断</span></div>
+      <div class="step-arrow"></div>
+      <div class="step"><span class="num">3</span><span>优化结果</span></div>
+    </div>
+  </div>
+
+  <main class="page">
+    <div class="page-header page-header-row">
+      <div>
+        <h1>AI 诊断结果</h1>
+        <p>当前岗位：<strong>前端开发实习生（Vue）</strong> · 某科技公司</p>
+      </div>
+      <span class="tag tag-gray" style="margin:0;height:26px;padding:0 10px;border-radius:999px;">分析中…</span>
+    </div>
+
+    <div class="score-row">
+      <div class="skel-card">
+        <div class="skel skel-title"></div>
+        <div class="skel skel-circle"></div>
+        <div class="skel skel-line w60" style="margin:0 auto;"></div>
+      </div>
+      <div class="skel-card">
+        <div class="skel skel-title"></div>
+        <div class="skel skel-line w80" style="margin:40px auto 0;height:36px;"></div>
+        <div class="skel skel-line w60" style="margin:16px auto 0;"></div>
+      </div>
+      <div class="skel-card">
+        <div class="skel skel-title"></div>
+        <div class="skel skel-line w80" style="margin:40px auto 0;height:36px;"></div>
+        <div class="skel skel-line w60" style="margin:16px auto 0;"></div>
+      </div>
+    </div>
+
+    <div class="mid-row">
+      <div class="skel-card">
+        <div class="skel skel-line w40" style="width:30%;margin-bottom:20px;"></div>
+        <div class="skel skel-line w100" style="height:8px;"></div>
+        <div class="skel skel-line w80" style="margin-top:24px;"></div>
+        <div class="skel skel-line w60"></div>
+        <div class="skel skel-line w70" style="width:70%;"></div>
+      </div>
+      <div class="skel-card">
+        <div class="skel skel-line w40" style="width:30%;margin-bottom:20px;"></div>
+        <div class="skel skel-line w100"></div>
+        <div class="skel skel-line w100"></div>
+        <div class="skel skel-line w80"></div>
+        <div class="skel skel-line w60"></div>
+      </div>
+    </div>
+
+    <div class="skel-card" style="min-height:140px;">
+      <div class="skel skel-line w40" style="width:20%;margin-bottom:20px;"></div>
+      <div class="skel skel-line w100" style="height:48px;"></div>
+      <div class="skel skel-line w100" style="height:48px;margin-top:12px;"></div>
+    </div>
+  </main>
+
+  <div class="loading-overlay">
+    <div class="loading-box">
+      <div class="spinner"></div>
+      <div class="loading-text">AI 分析中，请稍候…</div>
+      <div class="loading-sub">预计 3–8 秒 · 演示模式返回 Mock 结果</div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="bottom-bar-inner">
+      <div class="bottom-actions">
+        <button class="btn btn-outline disabled" type="button" disabled>返回修改简历</button>
+      </div>
+      <div class="bottom-actions">
+        <button class="btn btn-primary lg disabled" type="button" disabled>生成优化版本</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
