@@ -23,7 +23,8 @@ resume-web/
     │       ├── app.js
     │       ├── jobs-data.js
     │       ├── markdown-lite.js
-    │       └── deepseek-api.js
+    │       ├── deepseek-api.js
+    │       └── hero-anim.js
     ├── DESIGN_SPEC.md
     └── REPLICATION_PROMPT.md
 ```
@@ -41,6 +42,12 @@ cd resume-web/src
 python -m http.server 5177
 ```
 
+### 演示模式（默认，答辩推荐）
+
+- 顶栏保持 **演示模式 · Mock**
+- 无需 API Key、无需代理
+- 诊断/优化为内置示例数据，保证全流程可演示
+
 ### 真实模式 DeepSeek（可选）
 
 ```bash
@@ -52,8 +59,11 @@ npm run proxy
 1. 浏览器打开站点，切到 **真实模式 · DeepSeek**
 2. **配置 API Key**（仅本机 localStorage）
 3. 模型：`deepseek-v4-flash` / `deepseek-v4-pro`
+4. 双模式对照表与存储键说明见页面 **关于项目**（`about.html`）
 
 ## 与 docs 的关系
 
+- 前端约定：`docs/contexts/web/CONTEXT.md`
 - 历史/备份：`docs/output/reports/ui-prototype/`（brief、zip、截图说明）
+- README 配图：`docs/images/readme/`
 - **以本仓库 `resume-web/src` 为唯一前端源码入口**，后续 Vue 复刻也从这里迁出。

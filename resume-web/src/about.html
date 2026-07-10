@@ -62,28 +62,102 @@
       </article>
 
       <article class="panel about-card about-card-span">
-        <div class="section-title">演示模式 vs 真实模式</div>
+        <div class="section-title">演示模式 vs 真实模式（维护必读）</div>
+        <p class="about-p">顶栏可随时切换。两种模式<strong>页面流程相同</strong>（填简历 → 选岗 → 诊断 → 优化 → 导出），差别只在「AI 结果从哪来」。</p>
+
         <div class="mode-compare-grid" style="margin-top:12px">
           <div class="mode-compare-card">
             <div class="pill">演示模式 · Mock</div>
             <ul class="about-list">
               <li><strong>要 Key 吗？</strong> 不需要</li>
-              <li><strong>结果从哪来？</strong> 页面内置示例数据</li>
-              <li><strong>适合场景</strong> 答辩、无网、无额度</li>
-              <li><strong>如何切换</strong> 顶栏点「演示模式 · Mock」</li>
+              <li><strong>要开代理吗？</strong> 不需要，只开 <code>npm run dev</code></li>
+              <li><strong>结果从哪来？</strong> 前端内置示例诊断 / 优化文案（固定内容）</li>
+              <li><strong>换简历会变吗？</strong> 基本不变——适合答辩「保证能跑通」</li>
+              <li><strong>适合场景</strong> 课堂演示、断网、无额度、助教验收</li>
+              <li><strong>如何切换</strong> 任意页顶栏 →「演示模式 · Mock」</li>
             </ul>
           </div>
           <div class="mode-compare-card mode-compare-live">
             <div class="pill pill-live">真实模式 · DeepSeek</div>
             <ul class="about-list">
-              <li><strong>要 Key 吗？</strong> 要，存在本机 localStorage</li>
-              <li><strong>模型</strong> V4 Flash / V4 Pro（id：deepseek-v4-flash / deepseek-v4-pro）</li>
-              <li><strong>还要开什么</strong> <code>npm run proxy</code>（:8787）</li>
-              <li><strong>结果从哪来？</strong> 模型动态返回，写入 sessionStorage 再渲染</li>
-              <li><strong>安全</strong> Key 不进 Git；别人 clone 拿不到你的 Key</li>
+              <li><strong>要 Key 吗？</strong> 要。仅存在本机浏览器 <code>localStorage</code></li>
+              <li><strong>要开代理吗？</strong> 要：另开终端 <code>npm run proxy</code>（:8787，绕过 CORS）</li>
+              <li><strong>模型</strong> V4 Flash（<code>deepseek-v4-flash</code>）/ V4 Pro（<code>deepseek-v4-pro</code>）</li>
+              <li><strong>结果从哪来？</strong> 模型按「简历 + 岗位」动态生成，再写入 <code>sessionStorage</code> 渲染</li>
+              <li><strong>换简历会变吗？</strong> 会——内容随输入变化，适合展示「真 AI」</li>
+              <li><strong>安全</strong> Key 不进 Git；别人 clone 仓库拿不到你的 Key</li>
             </ul>
           </div>
         </div>
+
+        <div class="section-title" style="margin-top:18px">对照一览</div>
+        <div class="about-table-wrap">
+          <table class="about-table">
+            <thead>
+              <tr>
+                <th>对比项</th>
+                <th>演示模式 · Mock</th>
+                <th>真实模式 · DeepSeek</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>API Key</td>
+                <td>不需要</td>
+                <td>需要（本机配置）</td>
+              </tr>
+              <tr>
+                <td>本机代理 :8787</td>
+                <td>不需要</td>
+                <td>必须开着</td>
+              </tr>
+              <tr>
+                <td>诊断 / 优化内容</td>
+                <td>内置固定示例</td>
+                <td>模型实时生成</td>
+              </tr>
+              <tr>
+                <td>关键词匹配分</td>
+                <td>本地算（同一套）</td>
+                <td>本地算（同一套）</td>
+              </tr>
+              <tr>
+                <td>AI 内容分</td>
+                <td>示例里的固定分</td>
+                <td>模型返回</td>
+              </tr>
+              <tr>
+                <td>失败时</td>
+                <td>几乎不会失败</td>
+                <td>可回退提示；可切回 Mock 继续演示</td>
+              </tr>
+              <tr>
+                <td>推荐用途</td>
+                <td>答辩主路径</td>
+                <td>展示真实调用能力</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section-title" style="margin-top:18px">真实模式启用步骤</div>
+        <ol class="about-ol">
+          <li>终端 1：<code>cd resume-web &amp;&amp; npm run dev</code>（:5177）</li>
+          <li>终端 2：<code>cd resume-web &amp;&amp; npm run proxy</code>（:8787，勿关）</li>
+          <li>浏览器顶栏切到「真实模式 · DeepSeek」</li>
+          <li>点「配置 API Key」填入 Key，选 Flash 或 Pro，保存</li>
+          <li>走智能诊断流程；结果由模型返回</li>
+        </ol>
+        <p class="about-p" style="margin-top:10px"><strong>常见问题：</strong> 真实模式无响应 → 先看代理是否在跑、Key 是否有效、额度是否够；答辩不稳时立刻切回演示模式。</p>
+
+        <div class="section-title" style="margin-top:18px">本机存储键（改代码时对照）</div>
+        <ul class="about-list">
+          <li><code>rw-mode</code>：当前模式（mock / live）</li>
+          <li><code>rw-deepseek-key</code> · <code>rw-deepseek-model</code>：真实模式配置</li>
+          <li><code>rw-resume</code> · <code>rw-job</code>：最近简历与岗位</li>
+          <li>诊断 / 优化动态结果：主要用 <code>sessionStorage</code>（关闭标签页即清）</li>
+        </ul>
+        <p class="about-p">相关实现：<code>assets/js/app.js</code>（模式切换）· <code>assets/js/deepseek-api.js</code>（调用）· <code>deepseek-proxy.py</code>（代理）。</p>
       </article>
 
       <article class="panel about-card">

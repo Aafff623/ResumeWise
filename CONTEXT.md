@@ -31,11 +31,13 @@
 | 问题类型 | Issue Type | `表达问题` / `项目经历` / `技能描述` / `其他` |
 | AI 优化 | AI Optimize | 基于原始简历 + 诊断结果，生成针对目标岗位优化后的简历文本 |
 | 修改说明 | Change Note | 优化版本附带的具体修改点列表 |
-| AI Mock 模式 | AI Mock Mode | `ai.mock-enabled=true` 时后端返回固定诊断结果，无需真实 API（见 ADR-0002） |
+| AI Mock 模式 | AI Mock Mode | 无真实大模型也能演示：后端规划为 `ai.mock-enabled=true`；**当前静态原型**为顶栏「演示模式 · Mock」（见 ADR-0002） |
+| 演示模式 | Demo / Mock Mode | 静态原型顶栏模式：内置示例诊断/优化，无需 Key 与代理 |
+| 真实模式 | Live Mode | 静态原型顶栏模式：经本机代理调用 DeepSeek V4；Key 仅存本机 localStorage |
 | Prompt 组装 | Prompt Assembly | 后端拼接系统提示 + 简历 + 岗位信息 + 输出格式约束 |
-| 前端 | Web | `resume-web`，Vue3 单页应用 |
-| 后端 | API | `resume-api`，Spring Boot REST 服务 |
-| 大模型 API | LLM API | 由**后端**调用；前端禁止直连，避免 Key 暴露 |
+| 前端 | Web | `resume-web`：当前为 `src/` 静态原型；规划 Vue3 单页 |
+| 后端 | API | `resume-api`，Spring Boot REST 服务（规划中） |
+| 大模型 API | LLM API | **规划**由后端调用（ADR-0003）；当前原型演示用本机代理 + 浏览器 Key（答辩过渡） |
 
 ## 关键约束
 

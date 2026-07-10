@@ -89,4 +89,29 @@ docs(ui-prototype): add mobile UI prototype screenshots
   - `html-src/assets/js/deepseek-api.js` · `deepseek-proxy.py`
   - `html-src/optimize.html` · `app.js` · `styles.css`
   - `docs/images/readme/*` · `README.md`
-- **状态**：awaiting-review
+- **状态**：已 commit / push（见 git log）
+
+---
+
+## 5. 收尾 · 关于页双模式详解 + 资产文档同步
+
+- **类型**：docs / chore
+- **说明**：用户确认不做 GSAP 英雄动画 entourage；在关于页写清演示模式 vs 真实模式（对照表、启用步骤、存储键、FAQ）；同步 web CONTEXT / resume-web README / 根 CONTEXT 术语。
+- **文件**：
+  - `resume-web/src/about.html`
+  - `resume-web/src/assets/css/styles.css`
+  - `resume-web/README.md`
+  - `docs/contexts/web/CONTEXT.md`
+  - `CONTEXT.md`
+  - `docs/history/2026-07-10/commit-history.md`
+- **状态**：awaiting-review → 用户要求收尾 commit + push
+
+### 建议 commit 信息
+
+```
+docs(web): clarify mock vs live modes on about page
+
+- Expand about.html with comparison table, setup steps, storage keys
+- Sync web CONTEXT and resume-web README for current static prototype
+```
+
