@@ -1,0 +1,50 @@
+# ===== Build / 依赖 =====
+**/target/
+**/build/
+**/out/
+
+# ===== 前端 =====
+**/node_modules/
+**/dist/
+**/.vite/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+*.local
+
+# ===== IDE =====
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.project
+.classpath
+.settings/
+
+# ===== 系统 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== 密钥 / 本地配置（永不入库）=====
+application-local.properties
+application-local.yml
+*.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# ===== AI Key（本机配置，绝不入库）=====
+# application.properties / application.yml 中允许放占位与示例
+# 但真实 AI API Key 只写 application-local.* 或环境变量
+
+# ===== 本地草稿（非真相源）=====
+.scratch/
+
+# ===== 日志 / 临时 =====
+*.log
+logs/
+tmp/
+temp/
