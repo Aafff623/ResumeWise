@@ -1,0 +1,33 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ResumeWise · 填写简历</title><link rel="stylesheet" href="assets/css/styles.css"></head><body><div class="app"><div class="container">
+<header class="nav"><a class="brand" href="index.html"><span class="brand-mark"></span><span>ResumeWise</span></a><div class="stepper"><div class="step active"><b>1</b>填写简历</div><span class="step-line"></span><div class="step"><b>2</b>AI 诊断</div><span class="step-line"></span><div class="step"><b>3</b>优化结果</div></div><div class="status"><i></i>本地自动保存</div></header>
+<section class="page-head"><div><div class="eyebrow">Step 01 · Resume & Target Job</div><h1>先让系统认识你的简历与目标岗位</h1></div><span class="pill dark">演示模式 · 不上传文件</span></section>
+<section class="workspace"><div class="panel editor-panel"><div class="panel-head"><div><div class="section-title">简历内容</div><div class="caption">直接粘贴纯文本，或使用系统示例</div></div><div class="editor-tabs"><button class="editor-tab active" data-sample>粘贴文本</button><button class="editor-tab" data-sample>使用示例</button></div></div><div class="editor-body"><textarea id="resumeText" class="resume-input">张驰｜软件工程专业
+求职方向：Java 后端开发实习生
+
+教育经历
+太原某高校 · 软件工程 · 本科
+
+专业技能
+熟悉 Java 基础语法、集合框架和面向对象；了解 Spring Boot、MyBatis；会使用 Git 完成版本管理。
+
+项目经历｜校园活动管理系统
+使用 Spring Boot + Vue 完成前后端分离开发，负责活动发布、报名与审核模块。通过 RESTful API 完成前后端数据交互，并使用 Git 进行协作。
+
+校园经历
+参与学院软件创新实践项目，负责功能实现与演示材料整理。</textarea><div class="editor-foot"><span id="charCount">约 284 字 · 已缓存到 localStorage</span><button class="btn btn-ghost" onclick="document.querySelector('#resumeText').value='';document.querySelector('#resumeText').dispatchEvent(new Event('input'))">清空内容</button></div></div></div>
+<aside class="panel"><div class="panel-head"><div><div class="section-title">目标岗位</div><div class="caption">选择一个岗位作为优化方向</div></div><span class="pill">5 个岗位</span></div><div class="job-list"><div class="job active" data-job="java"><span class="radio"></span><div><b>Java 后端开发实习生</b><small>Spring Boot · RESTful API · Git</small></div></div><div class="job" data-job="frontend"><span class="radio"></span><div><b>前端开发实习生</b><small>Vue3 · JavaScript · Axios</small></div></div><div class="job" data-job="test"><span class="radio"></span><div><b>软件测试实习生</b><small>测试用例 · 缺陷管理 · 接口测试</small></div></div><div class="job" data-job="product"><span class="radio"></span><div><b>产品助理</b><small>需求分析 · 原型 · 文档表达</small></div></div><div class="job" data-job="data"><span class="radio"></span><div><b>数据分析实习生</b><small>Excel · SQL · 数据可视化</small></div></div></div><div class="job-keywords"><div class="paper-label">当前岗位关键词</div><div class="tags" style="margin-top:10px"><span class="tag hit">Java</span><span class="tag hit">Spring Boot</span><span class="tag">MySQL</span><span class="tag">RESTful API</span><span class="tag">Git</span><span class="tag">Maven</span></div></div></aside></section>
+<div class="actionbar"><div class="privacy"><span class="privacy-icon">⌁</span><div><div class="section-title">隐私说明</div><div class="caption">简历只用于本次诊断；AI 请求由后端统一转发</div></div></div><a class="btn btn-blue" href="review.html" data-loading-link>开始 AI 诊断 <span>→</span></a></div></div></div>
+<pre id="sampleResume" hidden>张驰｜软件工程专业
+求职方向：Java 后端开发实习生
+
+教育经历
+太原某高校 · 软件工程 · 本科
+
+专业技能
+熟悉 Java 基础语法、集合框架和面向对象；了解 Spring Boot、MyBatis；会使用 Git 完成版本管理。
+
+项目经历｜校园活动管理系统
+使用 Spring Boot + Vue 完成前后端分离开发，负责活动发布、报名与审核模块。通过 RESTful API 完成前后端数据交互，并使用 Git 进行协作。
+
+校园经历
+参与学院软件创新实践项目，负责功能实现与演示材料整理。</pre><div id="loading" class="loading-overlay"><div class="loading-card"><div class="spinner"></div><b>正在生成诊断结果</b><div class="caption" style="margin-top:8px">关键词匹配与 AI 内容分析正在进行</div></div></div><div id="toast" class="toast"></div><script src="assets/js/app.js"></script></body></html>
