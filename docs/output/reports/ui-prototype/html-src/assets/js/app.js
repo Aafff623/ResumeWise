@@ -28,7 +28,7 @@ function getSettings() {
     mode: getMode(),
     apiKey: localStorage.getItem(STORE.deepseekKey) || "",
     baseUrl: localStorage.getItem(STORE.deepseekBase) || "https://api.deepseek.com",
-    model: localStorage.getItem(STORE.deepseekModel) || "deepseek-chat"
+    model: localStorage.getItem(STORE.deepseekModel) || "deepseek-v4-flash"
   };
 }
 
@@ -85,8 +85,8 @@ function ensureSettingsUI() {
   <div class="modal-card" role="dialog" aria-labelledby="settingsTitle">
     <div class="modal-head">
       <div>
-        <div class="section-title" id="settingsTitle">配置 DeepSeek API Key</div>
-        <div class="caption">真实模式专用 · 生产环境 Key 仅存后端，原型用 localStorage 演示配置形态</div>
+        <div class="section-title" id="settingsTitle">配置 DeepSeek</div>
+        <div class="caption">真实模式 · 选择 V4 模型并填写 API Key</div>
       </div>
       <button type="button" class="icon-btn" data-close-settings aria-label="关闭">×</button>
     </div>
@@ -97,20 +97,23 @@ function ensureSettingsUI() {
       </div>
       <div class="field">
         <label class="field-label" for="cfgModel">模型</label>
-        <input id="cfgModel" class="field-input" type="text" placeholder="deepseek-chat" autocomplete="off" />
+        <select id="cfgModel" class="field-input field-select">
+          <option value="deepseek-v4-flash">DeepSeek V4 Flash</option>
+          <option value="deepseek-v4-pro">DeepSeek V4 Pro</option>
+        </select>
       </div>
       <div class="field">
         <label class="field-label" for="cfgKey">DeepSeek API Key</label>
-        <input id="cfgKey" class="field-input" type="password" placeholder="sk-…（勿提交到 Git 仓库）" autocomplete="off" />
+        <input id="cfgKey" class="field-input" type="password" placeholder="sk-…（仅保存在本机浏览器）" autocomplete="off" />
       </div>
       <div class="settings-note">
-        <b>对接说明</b>
-        <p>请求应走后端 <code>/api/ai/*</code>，由服务端携带 Key 调用 DeepSeek。演示模式无需填写。</p>
+        <b>Key 存储说明（localStorage）</b>
+        <p>保存后写入<strong>当前浏览器</strong>的 <code>localStorage</code>，不会进 Git、不会随仓库分发。A 同学本机填的 Key，B 同学 clone 项目后拿不到，需各自填写自己的 Key。</p>
       </div>
     </div>
     <div class="modal-foot">
       <button type="button" class="btn btn-ghost" data-close-settings>取消</button>
-      <button type="button" class="btn btn-blue" id="settingsSave">保存 Key</button>
+      <button type="button" class="btn btn-blue" id="settingsSave">保存到本机</button>
     </div>
   </div>
 </div>`;
@@ -137,14 +140,15 @@ function ensureSettingsUI() {
       toast("真实模式请填写 DeepSeek API Key");
       return;
     }
+    const model = qs("#cfgModel").value || "deepseek-v4-flash";
     saveSettings({
       mode: getMode() || "live",
       apiKey: key,
       baseUrl: qs("#cfgBase").value.trim() || "https://api.deepseek.com",
-      model: qs("#cfgModel").value.trim() || "deepseek-chat"
+      model
     });
     closeSettings();
-    toast("API 配置已保存");
+    toast("已保存到本机 localStorage（不会上传仓库）");
   });
 }
 
@@ -153,7 +157,13 @@ function openSettings() {
   const s = getSettings();
   qs("#cfgKey").value = s.apiKey;
   qs("#cfgBase").value = s.baseUrl;
-  qs("#cfgModel").value = s.model;
+  const modelSel = qs("#cfgModel");
+  // 兼容旧默认 deepseek-chat → v4-flash
+  let model = s.model;
+  if (!model || model === "deepseek-chat" || model === "deepseek-reasoner") {
+    model = "deepseek-v4-flash";
+  }
+  if (modelSel) modelSel.value = model;
   qs("#settingsModal").hidden = false;
   document.body.classList.add("modal-open");
 }
@@ -326,6 +336,28 @@ function renderJobPanel() {
   paintJob(current);
 }
 
+/* —— Markdown help modal —— */
+function bindMdHelp() {
+  const open = () => {
+    const m = qs("#mdHelpModal");
+    if (!m) return;
+    m.hidden = false;
+    document.body.classList.add("modal-open");
+  };
+  const close = () => {
+    const m = qs("#mdHelpModal");
+    if (m) m.hidden = true;
+    if (qs("#settingsModal")?.hidden !== false && qs("#modelModal")?.hidden !== false) {
+      document.body.classList.remove("modal-open");
+    }
+  };
+  qs("#mdHelpBtn")?.addEventListener("click", open);
+  qs("#mdHelpBtn2")?.addEventListener("click", open);
+  document.body.addEventListener("click", (e) => {
+    if (e.target.closest("[data-close-md-help]")) close();
+  });
+}
+
 /* —— Markdown resume editor —— */
 function bindResumeEditor() {
   const input = qs("#resumeText");
@@ -381,29 +413,109 @@ function bindResumeEditor() {
   });
 }
 
+const LIVE_REVIEW_KEY = "rw-live-review";
+const LIVE_OPTIMIZE_KEY = "rw-live-optimize";
+
+function showLoading(title, caption) {
+  const overlay = qs("#loading");
+  const t = qs("#loadingTitle") || overlay?.querySelector("b");
+  const c = qs("#loadingCaption");
+  if (t && title) t.textContent = title;
+  if (c && caption) c.textContent = caption;
+  overlay?.classList.add("show");
+}
+
+function hideLoading() {
+  qs("#loading")?.classList.remove("show");
+}
+
+function currentJob() {
+  const id = localStorage.getItem(STORE.job) || "java";
+  return window.RW_JOBS?.[id] || window.RW_JOBS?.java;
+}
+
 /* —— Navigation actions —— */
 function bindNavActions() {
   qsa("[data-loading-link]").forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", async (e) => {
       e.preventDefault();
+      const href = btn.getAttribute("href") || "";
       const { mode, apiKey } = getSettings();
-      if (mode === "live" && !apiKey) {
+
+      // 演示模式：仍走静态页
+      if (mode !== "live") {
+        showLoading("正在生成结果", "演示模式：返回 Mock 结构化结果");
+        setTimeout(() => {
+          location.href = href;
+        }, 900);
+        return;
+      }
+
+      if (!apiKey) {
         toast("真实模式请先配置 DeepSeek API Key");
         openSettings();
         return;
       }
-      const overlay = qs("#loading");
-      const caption = qs("#loadingCaption");
-      if (caption) {
-        caption.textContent =
-          mode === "live"
-            ? "真实模式：将经后端调用 DeepSeek（原型仅演示加载态）"
-            : "演示模式：返回 Mock 结构化结果";
+      if (!window.RW_DeepSeek) {
+        toast("未加载 deepseek-api.js");
+        return;
       }
-      overlay?.classList.add("show");
-      setTimeout(() => {
-        location.href = btn.getAttribute("href");
-      }, 1100);
+
+      const job = currentJob();
+      const resumeText =
+        localStorage.getItem(STORE.resume) || qs("#resumeText")?.value || "";
+
+      try {
+        // optimize.html → review.html ：真实诊断
+        if (href.includes("review.html")) {
+          if (!resumeText.trim()) {
+            toast("请先填写简历");
+            return;
+          }
+          showLoading("DeepSeek 诊断中…", `模型 ${getSettings().model} · 经本机代理调用`);
+          const review = await window.RW_DeepSeek.reviewResume({ resumeText, job });
+          sessionStorage.setItem(LIVE_REVIEW_KEY, JSON.stringify(review));
+          sessionStorage.setItem(STORE.resume, resumeText);
+          location.href = "review.html";
+          return;
+        }
+
+        // review.html → result.html ：真实优化
+        if (href.includes("result.html")) {
+          let review = null;
+          try {
+            review = JSON.parse(sessionStorage.getItem(LIVE_REVIEW_KEY) || "null");
+          } catch (_) {
+            review = null;
+          }
+          const text = resumeText || localStorage.getItem(STORE.resume) || "";
+          if (!text.trim()) {
+            toast("缺少简历原文，请返回填写页");
+            return;
+          }
+          showLoading("DeepSeek 优化中…", `模型 ${getSettings().model} · 生成岗位定向版本`);
+          const opt = await window.RW_DeepSeek.optimizeResume({
+            resumeText: text,
+            job,
+            review
+          });
+          sessionStorage.setItem(LIVE_OPTIMIZE_KEY, JSON.stringify(opt));
+          location.href = "result.html";
+          return;
+        }
+
+        location.href = href;
+      } catch (err) {
+        hideLoading();
+        console.error(err);
+        const msg = err?.message || String(err);
+        toast(msg.length > 80 ? msg.slice(0, 80) + "…" : msg);
+        alert(
+          "DeepSeek 调用失败：\n\n" +
+            msg +
+            "\n\n请确认：\n1) 已切换真实模式并保存 Key\n2) 已启动代理：python deepseek-proxy.py\n3) 网络可访问 api.deepseek.com"
+        );
+      }
     });
   });
 
@@ -552,14 +664,207 @@ function scoreTone(score) {
   return { key: "risk", label: "匹配偏弱 · 优先补关键词与成果", color: "#e03131", color2: "#ff6b6b" };
 }
 
+/* —— Live result renderers —— */
+function renderLiveReviewPage() {
+  if (getMode() !== "live") return;
+  let data;
+  try {
+    data = JSON.parse(sessionStorage.getItem(LIVE_REVIEW_KEY) || "null");
+  } catch (_) {
+    data = null;
+  }
+  if (!data || data.source !== "deepseek") {
+    // 真实模式但无结果：提示
+    const host = qs(".review-main") || qs(".review-layout");
+    if (host) {
+      const tip = document.createElement("div");
+      tip.className = "live-banner live-banner-warn";
+      tip.innerHTML =
+        "当前为<strong>真实模式</strong>，但还没有 DeepSeek 诊断结果。请从「填写简历」页点击「开始 AI 诊断」。";
+      host.parentElement?.insertBefore(tip, host);
+    }
+    return;
+  }
+
+  const banner = document.createElement("div");
+  banner.className = "live-banner";
+  banner.innerHTML = `真实模式 · 已接入 DeepSeek（${escapeHtml(data.model || "")}）· 综合分 ${data.overallScore}`;
+  const layout = qs(".review-layout");
+  layout?.parentElement?.insertBefore(banner, layout);
+
+  const h1 = qs(".page-head h1");
+  if (h1 && data.jobTitle) h1.textContent = `针对「${data.jobTitle}」的诊断结果`;
+
+  // score
+  const scoreCard = qs("#overallScoreCard") || qs("[data-score]");
+  if (scoreCard) {
+    scoreCard.dataset.score = String(data.overallScore);
+    scoreCard.style.setProperty("--score", String(data.overallScore));
+    const val = qs("#overallScoreVal");
+    if (val) val.textContent = String(data.overallScore);
+    const ring = scoreCard.querySelector(".score-ring-visual");
+    if (ring) ring.style.setProperty("--score", String(data.overallScore));
+  }
+  const mood = scoreTone(data.overallScore);
+  const moodEl = qs("#overallScoreMood");
+  if (moodEl) moodEl.textContent = mood.label;
+  scoreCard?.classList.add(`score-tone-${mood.key}`);
+  scoreCard?.style.setProperty("--score-color", mood.color);
+  scoreCard?.style.setProperty("--score-color-2", mood.color2);
+
+  const summaryH2 = qs(".summary h2");
+  const summaryP = qs(".summary p");
+  if (summaryH2) summaryH2.textContent = data.summary?.slice(0, 48) || "诊断完成";
+  if (summaryP) summaryP.textContent = data.summary || "";
+
+  const chips = qs(".metric-chips");
+  if (chips) {
+    chips.innerHTML = `
+      <span class="metric-chip">关键词匹配 <b>${data.matchScore}</b></span>
+      <span class="metric-chip">AI 内容评分 <b>${data.contentScore}</b></span>
+      <span class="metric-chip">问题数量 <b>${(data.issues || []).length}</b></span>`;
+  }
+
+  // keywords
+  const rows = qsa(".keyword-row");
+  if (rows[0]) {
+    const tags = rows[0].querySelector(".tags");
+    if (tags) {
+      tags.innerHTML = (data.matchedKeywords || [])
+        .map((k) => `<span class="tag hit">${escapeHtml(k)}</span>`)
+        .join("") || `<span class="caption">无</span>`;
+    }
+  }
+  if (rows[1]) {
+    const tags = rows[1].querySelector(".tags");
+    if (tags) {
+      tags.innerHTML = (data.missingKeywords || [])
+        .map((k) => `<span class="tag miss">${escapeHtml(k)}</span>`)
+        .join("") || `<span class="caption">无</span>`;
+    }
+  }
+
+  // match donut
+  const donut = qs(".donut-v2");
+  if (donut) {
+    donut.style.setProperty("--pct", String(data.matchScore));
+    const b = donut.querySelector("b");
+    if (b) b.textContent = `${data.matchScore}%`;
+  }
+  const metrics = qsa(".match-v2 .metric strong, .match .metric strong");
+  if (metrics[0]) {
+    metrics[0].textContent = `${(data.matchedKeywords || []).length} / ${(data.matchedKeywords || []).length + (data.missingKeywords || []).length}`;
+  }
+
+  // issues
+  const box = qs(".issues-priority") || qs(".issues");
+  if (box) {
+    const head = box.querySelector(".issues-head");
+    const sorted = [...(data.issues || [])].sort(
+      (a, b) => (a.priority || 9) - (b.priority || 9)
+    );
+    const html = sorted
+      .map((it, i) => {
+        const p = Number(it.priority) || 2;
+        const pClass = p <= 1 ? "issue-p1" : p === 2 ? "issue-p2" : "issue-p3";
+        const pLabel = p <= 1 ? "P1 · 紧急" : p === 2 ? "P2 · 重要" : "P3 · 建议";
+        return `<div class="issue ${pClass}" data-priority="${p}">
+          <label class="issue-check"><input type="checkbox" ${p <= 2 ? "checked" : ""} disabled><span></span></label>
+          <div class="issue-priority-tag">${pLabel}</div>
+          <div class="issue-body">
+            <div class="issue-type">${escapeHtml(it.type || "其他")}</div>
+            <div class="issue-desc">${escapeHtml(it.description || "")}</div>
+            <div class="issue-suggest"><b>建议</b>${escapeHtml(it.suggestion || "")}</div>
+          </div>
+        </div>`;
+      })
+      .join("");
+    box.innerHTML =
+      (head
+        ? head.outerHTML
+        : `<div class="issues-head"><div class="section-title">结构化问题与建议</div><span class="caption">DeepSeek 动态结果</span></div>`) +
+      html;
+  }
+}
+
+function renderLiveResultPage() {
+  if (getMode() !== "live") return;
+  let data;
+  try {
+    data = JSON.parse(sessionStorage.getItem(LIVE_OPTIMIZE_KEY) || "null");
+  } catch (_) {
+    data = null;
+  }
+  if (!data || data.source !== "deepseek") {
+    const host = qs(".result-layout");
+    if (host) {
+      const tip = document.createElement("div");
+      tip.className = "live-banner live-banner-warn";
+      tip.innerHTML =
+        "当前为<strong>真实模式</strong>，但还没有 DeepSeek 优化结果。请从诊断页点击「生成优化版本」。";
+      host.parentElement?.insertBefore(tip, host);
+    }
+    return;
+  }
+
+  const banner = document.createElement("div");
+  banner.className = "live-banner";
+  banner.innerHTML = `真实模式 · DeepSeek 已生成优化版（${escapeHtml(data.model || "")}）`;
+  const layout = qs(".result-layout");
+  layout?.parentElement?.insertBefore(banner, layout);
+
+  const original =
+    localStorage.getItem(STORE.resume) ||
+    qs("#originalResume")?.innerText ||
+    "";
+  const origEl = qs("#originalResume");
+  if (origEl) {
+    if (typeof window.RW_md === "function" && /[#*`-]/.test(original)) {
+      origEl.innerHTML = window.RW_md(original);
+    } else {
+      origEl.innerHTML = `<pre class="plain-resume">${escapeHtml(original)}</pre>`;
+    }
+  }
+
+  const optMd = data.optimizedResume || "";
+  const optEl = qs("#optimizedResume");
+  if (optEl) {
+    if (typeof window.RW_md === "function") {
+      optEl.innerHTML = window.RW_md(optMd);
+    } else {
+      optEl.textContent = optMd;
+    }
+  }
+  const optText = qs("#optimizedResumeText");
+  if (optText) optText.textContent = optMd;
+
+  const list = qs("#changeNotes") || qs(".change-list");
+  if (list && Array.isArray(data.changes)) {
+    list.innerHTML = data.changes
+      .map(
+        (c, i) =>
+          `<div class="change"><span class="change-num">${i + 1}</span><div><b>${escapeHtml(
+            typeof c === "string" ? c : c.title || "修改"
+          )}</b><small>${escapeHtml(
+            typeof c === "string" ? "" : c.detail || ""
+          )}</small></div></div>`
+      )
+      .join("");
+  }
+}
+
 /* —— Boot —— */
 document.addEventListener("DOMContentLoaded", () => {
   ensureSettingsUI();
   syncModeUI();
+  bindMdHelp();
   bindResumeEditor();
   renderJobPanel();
   bindNavActions();
   bindReviewEnhancements();
+  // 真实模式动态渲染
+  if (qs(".review-layout")) renderLiveReviewPage();
+  if (qs(".result-layout")) renderLiveResultPage();
 });
 
 // expose for debug

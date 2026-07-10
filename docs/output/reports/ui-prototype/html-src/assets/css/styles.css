@@ -290,3 +290,26 @@ body.modal-open{overflow:hidden}
   .issue{grid-template-columns:28px 1fr}
   .issue-priority-tag{grid-column:2}
 }
+.field-select{appearance:auto;cursor:pointer;padding-right:12px}
+.field-select option{font-weight:600}
+.live-banner{margin:0 0 14px;padding:12px 14px;border-radius:12px;background:linear-gradient(90deg,#eef0ff,#e7f5ff);border:1px solid #c5d0ff;color:#343a90;font-size:13px;font-weight:700}
+.live-banner-warn{background:#fff9db;border-color:#ffe066;color:#95661d}
+.plain-resume{white-space:pre-wrap;font:13px/1.75 Microsoft YaHei,sans-serif;margin:0}
+/* Markdown help */
+.editor-title-row{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.md-help-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid #c5cff5;background:linear-gradient(180deg,#fff,#eef0ff);color:#4f63ee;font:800 14px/1 Georgia,serif;cursor:pointer;flex:none;margin-top:2px;box-shadow:0 2px 8px rgba(79,99,238,.12)}
+.md-help-btn:hover{background:#4f63ee;color:#fff;border-color:#4f63ee}
+.md-tip{margin:0 0 10px;padding:10px 12px;border-radius:12px;background:#f5f7ff;border:1px solid #dce3ff;font-size:12px;line-height:1.65;color:#4a5568}
+.md-tip strong{color:#3b4cc0}
+.md-tip b{color:#4f63ee}
+.modal-card-mdhelp{width:min(560px,94vw);max-height:min(86vh,720px)}
+.md-help-body{display:flex;flex-direction:column;gap:14px}
+.md-help-callout{padding:12px 14px;border-radius:12px;background:linear-gradient(120deg,#eefaf5,#eef0ff);border:1px solid #d5e8df}
+.md-help-callout b{font-size:12px;color:var(--ink)}
+.md-help-callout p{margin:6px 0 0;font-size:12px;line-height:1.7;color:var(--muted)}
+.md-help-table{width:100%;border-collapse:collapse;font-size:12px}
+.md-help-table th,.md-help-table td{border:1px solid #e8ebf0;padding:8px 10px;text-align:left;vertical-align:top}
+.md-help-table th{background:#f3f4f8;font-weight:800;color:var(--ink)}
+.md-help-table code{font-size:11px;background:#f1f3f5;padding:2px 5px;border-radius:4px}
+.md-help-example{border:1px solid #e8ebf0;border-radius:12px;padding:12px;background:#fafbfc}
+.md-help-pre{margin:8px 0 0;padding:12px;border-radius:10px;background:#fff;border:1px solid #eef0f4;font:12px/1.65 Consolas,Microsoft YaHei,monospace;white-space:pre-wrap;color:#2a3448}
