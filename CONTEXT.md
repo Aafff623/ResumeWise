@@ -79,6 +79,7 @@
 │   ├── knowledge/            # 可迁移知识
 │   ├── history/              # 攒批 commit 记录
 │   ├── images/readme/        # README 配图
+│   ├── deliver/              # 交付用户：运行说明 · 答辩稿
 │   └── output/               # PRD、handoff、decks
 ├── resume-web/               # 前端工程（源码在 resume-web/src）
 └── resume-api/               # Spring Boot 后端（规划中）
