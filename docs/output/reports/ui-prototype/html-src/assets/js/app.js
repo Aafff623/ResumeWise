@@ -343,6 +343,17 @@ function bindMdHelp() {
     if (!m) return;
     m.hidden = false;
     document.body.classList.add("modal-open");
+    // 默认显示源码；预渲染预览缓存
+    const src = qs("#mdHelpSource");
+    const prev = qs("#mdHelpPreview");
+    if (src && prev && typeof window.RW_md === "function") {
+      prev.innerHTML = window.RW_md(src.textContent || "");
+    }
+    qsa("[data-md-help-view]").forEach((t) =>
+      t.classList.toggle("active", t.dataset.mdHelpView === "source")
+    );
+    if (src) src.hidden = false;
+    if (prev) prev.hidden = true;
   };
   const close = () => {
     const m = qs("#mdHelpModal");
@@ -352,9 +363,26 @@ function bindMdHelp() {
     }
   };
   qs("#mdHelpBtn")?.addEventListener("click", open);
-  qs("#mdHelpBtn2")?.addEventListener("click", open);
   document.body.addEventListener("click", (e) => {
     if (e.target.closest("[data-close-md-help]")) close();
+    const tab = e.target.closest("[data-md-help-view]");
+    if (!tab || qs("#mdHelpModal")?.hidden) return;
+    const view = tab.dataset.mdHelpView;
+    qsa("[data-md-help-view]").forEach((t) => t.classList.toggle("active", t === tab));
+    const src = qs("#mdHelpSource");
+    const prev = qs("#mdHelpPreview");
+    if (view === "preview") {
+      if (src) src.hidden = true;
+      if (prev) {
+        if (typeof window.RW_md === "function" && src) {
+          prev.innerHTML = window.RW_md(src.textContent || "");
+        }
+        prev.hidden = false;
+      }
+    } else {
+      if (src) src.hidden = false;
+      if (prev) prev.hidden = true;
+    }
   });
 }
 

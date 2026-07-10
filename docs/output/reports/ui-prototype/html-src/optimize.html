@@ -57,26 +57,23 @@
     <section class="workspace workspace-3">
       <!-- Markdown 简历编辑器 -->
       <div class="panel editor-panel">
-        <div class="panel-head">
-          <div class="editor-title-row">
+        <div class="panel-head panel-head-editor">
+          <div class="editor-head-left">
+            <span class="section-title">我的简历</span>
             <button type="button" class="md-help-btn" id="mdHelpBtn" title="Markdown 简易教程" aria-label="Markdown 帮助">?</button>
-            <div>
-              <div class="section-title">我的简历</div>
-              <div class="caption">支持 Markdown · 默认编辑模式 · 可切换渲染预览</div>
+            <div class="md-mode-tabs" role="tablist">
+              <button type="button" class="md-mode-tab active" data-md-mode="edit">编辑模式</button>
+              <button type="button" class="md-mode-tab" data-md-mode="preview">渲染预览</button>
             </div>
           </div>
-          <div class="md-mode-tabs" role="tablist">
-            <button type="button" class="md-mode-tab active" data-md-mode="edit">编辑模式</button>
-            <button type="button" class="md-mode-tab" data-md-mode="preview">渲染预览</button>
-          </div>
+          <div class="caption editor-head-cap">支持 Markdown · 默认可直接粘贴 AI 生成的文本后点「渲染预览」</div>
         </div>
         <div class="editor-body md-editor">
           <div class="md-tip" role="note">
-            <strong>使用提示：</strong>可把 AI 生成的 Markdown 回答直接复制粘贴到下方编辑框，再点右侧「渲染预览」即可实时查看排版效果。不会 Markdown？点左侧 <b>?</b> 查看简易语法。
+            <strong>使用提示：</strong>可把 AI 回答的 Markdown 直接复制粘贴到下方编辑框，再点「渲染预览」查看排版。点「我的简历」右侧 <b>?</b> 可查看语法与最小示例。
           </div>
           <div class="md-toolbar">
             <button type="button" class="editor-tab" data-sample>填入示例</button>
-            <button type="button" class="editor-tab" id="mdHelpBtn2">语法说明</button>
             <span class="caption"># 标题 · **加粗** · - 列表</span>
           </div>
           <textarea id="resumeText" class="resume-input md-input" spellcheck="false"># 张驰｜软件工程专业
@@ -173,36 +170,39 @@
   <div class="modal-card modal-card-mdhelp" role="dialog" aria-labelledby="mdHelpTitle">
     <div class="modal-head">
       <div>
-        <div class="section-title" id="mdHelpTitle">Markdown 简易教程</div>
-        <div class="caption">简历编辑够用的语法速查 · 写完点「渲染预览」查看效果</div>
+        <div class="section-title" id="mdHelpTitle">Markdown 语法教学</div>
+        <div class="caption">在编辑器里这样写 · 下方可切换看最小示例的源码 / 预览</div>
       </div>
       <button type="button" class="icon-btn" data-close-md-help aria-label="关闭">×</button>
     </div>
     <div class="modal-body md-help-body">
-      <div class="md-help-callout">
-        <b>推荐用法</b>
-        <p>向 ChatGPT / DeepSeek 说「请用 Markdown 写一份实习简历」，把回答<strong>整段复制</strong>到编辑框，再点「渲染预览」即可。无需自己从零学语法。</p>
-      </div>
       <table class="md-help-table">
         <thead>
-          <tr><th>你想要的效果</th><th>编辑模式里这样写</th></tr>
+          <tr><th>效果</th><th>编辑器里怎么写</th></tr>
         </thead>
         <tbody>
-          <tr><td>一级标题（姓名）</td><td><code># 张三｜计算机专业</code></td></tr>
-          <tr><td>二级标题（模块）</td><td><code>## 教育背景</code></td></tr>
+          <tr><td>一级标题</td><td><code># 张三｜计算机专业</code></td></tr>
+          <tr><td>二级标题</td><td><code>## 教育背景</code></td></tr>
           <tr><td>三级标题</td><td><code>### 校园项目</code></td></tr>
           <tr><td>加粗</td><td><code>**求职意向：前端实习**</code></td></tr>
-          <tr><td>斜体</td><td><code>*可选说明*</code></td></tr>
-          <tr><td>无序列表</td><td><code>- 熟悉 Vue3</code><br><code>- 会用 Git</code></td></tr>
-          <tr><td>有序列表</td><td><code>1. 需求分析</code><br><code>2. 接口联调</code></td></tr>
+          <tr><td>斜体</td><td><code>*补充说明*</code></td></tr>
+          <tr><td>无序列表</td><td><code>- 熟悉 Vue3</code></td></tr>
+          <tr><td>有序列表</td><td><code>1. 需求分析</code></td></tr>
           <tr><td>行内代码</td><td><code>`Spring Boot`</code></td></tr>
           <tr><td>分割线</td><td><code>---</code></td></tr>
           <tr><td>链接</td><td><code>[作品集](https://example.com)</code></td></tr>
         </tbody>
       </table>
+
       <div class="md-help-example">
-        <div class="paper-label">最小示例</div>
-        <pre class="md-help-pre"># 李华｜软件工程
+        <div class="md-help-example-bar">
+          <span class="paper-label">最小示例（可对照学习）</span>
+          <div class="md-mode-tabs md-help-tabs" role="tablist">
+            <button type="button" class="md-mode-tab active" data-md-help-view="source">源码</button>
+            <button type="button" class="md-mode-tab" data-md-help-view="preview">预览</button>
+          </div>
+        </div>
+        <pre class="md-help-pre" id="mdHelpSource"># 李华｜软件工程
 **求职意向：** Java 后端实习生
 
 ## 专业技能
@@ -213,6 +213,7 @@
 **校园选课系统｜后端**
 - 负责报名接口 6 个 REST API
 - 使用 MyBatis 完成数据持久化</pre>
+        <div class="md-preview md-help-preview" id="mdHelpPreview" hidden></div>
       </div>
     </div>
     <div class="modal-foot">
