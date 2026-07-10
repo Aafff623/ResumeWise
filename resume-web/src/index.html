@@ -30,7 +30,6 @@
     </header>
 
     <main class="home home-landing">
-      <!-- Landing hero：只做价值主张 + 入口 -->
       <section class="hero">
         <div class="hero-copy">
           <div class="eyebrow">AI Resume Intelligence</div>
@@ -38,16 +37,16 @@
           <p>粘贴简历，选择目标岗位。ResumeWise 会先给出可解释的匹配评分，再由 AI 定位表达、项目和技能问题，并生成一份更对口的优化版本。</p>
           <div class="cta">
             <a class="btn btn-dark" href="optimize.html">开始智能优化 <span>→</span></a>
-            <a class="btn btn-light" href="#demo-flow">查看演示流程</a>
+            <a class="btn btn-light" href="#demo-flow">查看使用教程</a>
           </div>
           <div class="trust">
             <span><i>✓</i>5 个示例岗位</span>
-            <span><i>✓</i>AI 经后端调用</span>
+            <span><i>✓</i>Mock / DeepSeek 双模式</span>
             <span><i>✓</i>无需数据库</span>
-            <span><i>✓</i>支持 Mock 演示</span>
+            <span><i>✓</i>Key 仅存本机</span>
           </div>
         </div>
-        <div class="hero-visual">
+        <div class="hero-visual" id="heroVisual">
           <div class="paper-stack">
             <div class="resume-paper">
               <div class="paper-top">
@@ -109,37 +108,77 @@
         </div>
       </section>
 
-      <!-- 下拉：演示流程（亮色卡片，非业务功能区） -->
+      <!-- 使用教程 / 演示流程 -->
       <section id="demo-flow" class="landing-section">
         <div class="landing-section-head">
-          <div class="eyebrow">Demo Flow</div>
-          <h2>演示流程</h2>
-          <p>完整闭环三步。点击「开始智能优化」进入业务页后，按此顺序操作即可。</p>
+          <div class="eyebrow">How to use</div>
+          <h2>使用教程 · 演示流程</h2>
+          <p>按下面步骤即可完整体验。业务功能在「智能诊断」页，不在本页表单操作。</p>
         </div>
-        <div class="demo-flow-grid">
-          <article class="demo-card">
-            <div class="demo-num">01</div>
-            <h3>输入简历</h3>
-            <p>粘贴纯文本，或一键使用示例简历，内容自动缓存到本地。</p>
+
+        <div class="guide-steps">
+          <article class="guide-step">
+            <div class="guide-step-num">1</div>
+            <div class="guide-step-body">
+              <h3>进入智能优化</h3>
+              <p>点击首页「开始智能优化」，进入填写页。左侧写/贴简历（Markdown），右侧选择目标岗位；可点岗位旁的「样板简历参考」对照模范写法。</p>
+            </div>
           </article>
-          <article class="demo-card">
-            <div class="demo-num">02</div>
-            <h3>选择目标岗位</h3>
-            <p>从 5 个 Mock 岗位中单选，系统按岗位关键词进行匹配。</p>
+          <article class="guide-step">
+            <div class="guide-step-num">2</div>
+            <div class="guide-step-body">
+              <h3>编辑简历（Markdown）</h3>
+              <p>默认<strong>编辑模式</strong>。可手写语法，或把 AI 生成的 Markdown 整段粘贴进来，再点「渲染预览」。不会语法可点标题栏右侧 <b>?</b> 查看教学与最小示例预览。</p>
+            </div>
           </article>
-          <article class="demo-card">
-            <div class="demo-num">03</div>
-            <h3>AI 诊断与优化</h3>
-            <p>查看可解释评分与结构化问题，再生成优化版并对照导出。</p>
+          <article class="guide-step">
+            <div class="guide-step-num">3</div>
+            <div class="guide-step-body">
+              <h3>选择岗位并开始诊断</h3>
+              <p>单选 5 个 Mock 岗位之一，确认关键词与要求摘要后，点「开始 AI 诊断」。诊断依据 = 用户简历 + 岗位要求/关键词 + 样板简历。</p>
+            </div>
+          </article>
+          <article class="guide-step">
+            <div class="guide-step-num">4</div>
+            <div class="guide-step-body">
+              <h3>查看诊断 → 生成优化版 → 导出</h3>
+              <p>诊断页查看综合评分、匹配度、结构化问题；再生成优化版本，左右对照后可导出 MD / TXT / PDF / Word。</p>
+            </div>
           </article>
         </div>
+
+        <div class="mode-compare panel" id="mode-compare">
+          <div class="section-title" style="margin-bottom:12px">演示模式 vs 真实模式</div>
+          <div class="mode-compare-grid">
+            <div class="mode-compare-card">
+              <div class="pill">演示模式 · Mock</div>
+              <ul class="about-list">
+                <li>无需 API Key，开箱可跑通全流程</li>
+                <li>诊断/优化结果为本地写好的示例数据</li>
+                <li>适合答辩演示、断网、无额度场景</li>
+                <li>顶栏默认选中此模式</li>
+              </ul>
+            </div>
+            <div class="mode-compare-card mode-compare-live">
+              <div class="pill pill-live">真实模式 · DeepSeek</div>
+              <ul class="about-list">
+                <li>需配置 DeepSeek API Key（仅存本机浏览器 localStorage）</li>
+                <li>模型：V4 Flash（<code>deepseek-v4-flash</code>）/ V4 Pro（<code>deepseek-v4-pro</code>）</li>
+                <li>需另开本机代理：<code>cd resume-web && npm run proxy</code>（:8787）</li>
+                <li>诊断与优化结果由模型动态生成，随简历/岗位变化</li>
+                <li>A 同学的 Key 不会随仓库给到 B，需各自填写</li>
+              </ul>
+            </div>
+          </div>
+          <p class="caption" style="margin-top:14px">切换方式：任意页顶栏「演示模式 · Mock / 真实模式 · DeepSeek」。仅真实模式显示「配置 API Key」。</p>
+        </div>
+
         <div class="demo-flow-cta">
           <a class="btn btn-blue" href="optimize.html">进入智能优化 <span>→</span></a>
-          <span class="caption">功能模块在下一页，不在首页直接操作</span>
+          <a class="btn btn-light" href="about.html">关于项目与维护说明</a>
         </div>
       </section>
 
-      <!-- 能力摘要（轻量，非表单） -->
       <section class="landing-section landing-section-alt">
         <div class="landing-section-head">
           <div class="eyebrow">What you get</div>
@@ -153,15 +192,15 @@
           </div>
           <div class="value-card">
             <b>结构化问题</b>
-            <span>类型 · 描述 · 优化建议</span>
+            <span>优先级 · 描述 · 优化建议</span>
           </div>
           <div class="value-card">
             <b>对照与导出</b>
-            <span>原始 ↔ 优化 · 复制 / .txt</span>
+            <span>原始 ↔ 优化 · MD/TXT/PDF/Word</span>
           </div>
           <div class="value-card">
-            <b>演示鲁棒</b>
-            <span>AI Mock 模式，无 Key 也能跑通</span>
+            <b>双模式</b>
+            <span>Mock 演示 · DeepSeek 真实</span>
           </div>
         </div>
       </section>
@@ -174,7 +213,10 @@
   </div>
 </div>
 <div id="toast" class="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="assets/js/jobs-data.js"></script>
-<script src="assets/js/deepseek-api.js"></script><script src="assets/js/app.js"></script>
+<script src="assets/js/deepseek-api.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/hero-anim.js"></script>
 </body>
 </html>

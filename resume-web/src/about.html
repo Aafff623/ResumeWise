@@ -31,40 +31,96 @@
 
     <section class="page-head">
       <div>
-        <div class="eyebrow">About</div>
-        <h1>关于 ResumeWise</h1>
+        <div class="eyebrow">About &amp; Maintain</div>
+        <h1>关于项目 · 维护说明</h1>
+        <p class="page-sub">给后续自己或同学改代码时用的速查页：定位、双模式、源码目录与启动方式。</p>
       </div>
       <a class="btn btn-blue" href="optimize.html">开始智能优化 →</a>
     </section>
 
-    <div class="about-layout">
+    <div class="about-layout about-layout-wide">
       <article class="panel about-card">
         <div class="section-title">项目定位</div>
-        <p class="about-p">面向大学生求职场景的 AI 简历诊断、岗位匹配与优化<strong>演示系统</strong>（大二小学期）。完成闭环：</p>
-        <p class="about-code">输入简历 → 选择目标岗位 → AI 诊断 → 展示问题 → 生成优化版本</p>
+        <p class="about-p">面向大学生求职场景的 AI 简历诊断、岗位匹配与优化<strong>演示系统</strong>（大二小学期）。核心闭环：</p>
+        <p class="about-code">输入简历 → 选择目标岗位（+ 样板参照）→ AI 诊断 → 生成优化版本 → 导出</p>
+        <p class="about-p">不是招聘平台；不做登录、爬虫、数据库、企业端、自动投递。</p>
       </article>
 
       <article class="panel about-card">
-        <div class="section-title">技术栈</div>
+        <div class="section-title">源码在哪（重要）</div>
+        <p class="about-p">前端规范 SRC 目录：</p>
+        <p class="about-code">resume-web/src/</p>
         <ul class="about-list">
-          <li>前端：Vue3 · Vite · Element Plus · Axios（业务实现阶段）</li>
-          <li>后端：Spring Boot 3 · REST · 无数据库</li>
-          <li>数据：Mock JSON + 浏览器 localStorage</li>
-          <li>AI：仅后端调用；支持 AI Mock 模式</li>
+          <li><code>index.html</code> 首页 landing</li>
+          <li><code>optimize.html</code> 填写简历 / 岗位 / 样板</li>
+          <li><code>review.html</code> AI 诊断结果</li>
+          <li><code>result.html</code> 优化对照与导出</li>
+          <li><code>assets/js/</code> 交互 · DeepSeek 调用 · 岗位数据</li>
+          <li><code>deepseek-proxy.py</code> 真实模式本机 CORS 代理</li>
         </ul>
+        <p class="about-p"><code>docs/</code> 放规范、ADR、配图、PRD；不要在 <code>docs/.../html-src</code> 里继续开发（仅迁移指针）。</p>
+      </article>
+
+      <article class="panel about-card about-card-span">
+        <div class="section-title">演示模式 vs 真实模式</div>
+        <div class="mode-compare-grid" style="margin-top:12px">
+          <div class="mode-compare-card">
+            <div class="pill">演示模式 · Mock</div>
+            <ul class="about-list">
+              <li><strong>要 Key 吗？</strong> 不需要</li>
+              <li><strong>结果从哪来？</strong> 页面内置示例数据</li>
+              <li><strong>适合场景</strong> 答辩、无网、无额度</li>
+              <li><strong>如何切换</strong> 顶栏点「演示模式 · Mock」</li>
+            </ul>
+          </div>
+          <div class="mode-compare-card mode-compare-live">
+            <div class="pill pill-live">真实模式 · DeepSeek</div>
+            <ul class="about-list">
+              <li><strong>要 Key 吗？</strong> 要，存在本机 localStorage</li>
+              <li><strong>模型</strong> V4 Flash / V4 Pro（id：deepseek-v4-flash / deepseek-v4-pro）</li>
+              <li><strong>还要开什么</strong> <code>npm run proxy</code>（:8787）</li>
+              <li><strong>结果从哪来？</strong> 模型动态返回，写入 sessionStorage 再渲染</li>
+              <li><strong>安全</strong> Key 不进 Git；别人 clone 拿不到你的 Key</li>
+            </ul>
+          </div>
+        </div>
       </article>
 
       <article class="panel about-card">
-        <div class="section-title">评分说明</div>
-        <p class="about-p">综合评分 = 关键词匹配分 × 40% + AI 内容分 × 60%。关键词分本地计算，稳定可解释；AI 内容分由大模型评估表达与项目质量。</p>
+        <div class="section-title">评分公式（答辩必背）</div>
+        <p class="about-code">综合评分 = 关键词匹配分 × 40% + AI 内容分 × 60%</p>
+        <p class="about-p">关键词分：本地按岗位 keywords 在简历中命中比例计算。内容分：Mock 固定 / 真实模式由 DeepSeek 给出。见 ADR-0001。</p>
+      </article>
+
+      <article class="panel about-card">
+        <div class="section-title">本地启动（维护速查）</div>
+        <p class="about-code">cd resume-web
+npm run dev          # 前端 :5177
+npm run proxy        # 真实模式代理 :8787</p>
+        <ul class="about-list">
+          <li>演示：只开 <code>npm run dev</code> 即可</li>
+          <li>真实：两个终端都开 + 配置 Key</li>
+          <li>改界面：改 <code>resume-web/src/*.html</code> 与 <code>assets/</code></li>
+        </ul>
       </article>
 
       <article class="panel about-card">
         <div class="section-title">范围边界</div>
         <ul class="about-list">
-          <li>不做：登录注册、数据库、招聘爬虫、PDF/Word 解析、企业端</li>
+          <li>不做：登录注册、数据库、招聘爬虫、PDF/Word 上传解析、企业端</li>
           <li>不做：多轮聊天 Agent、自动投递</li>
-          <li>必须：AI 经后端调用；Mock 模式可独立演示</li>
+          <li>当前前端为静态原型；Vue3 + Spring Boot 业务复刻为后续阶段</li>
+          <li>生产环境应将 Key 收到后端（ADR-0003），勿长期依赖浏览器直连</li>
+        </ul>
+      </article>
+
+      <article class="panel about-card about-card-span">
+        <div class="section-title">相关文档</div>
+        <ul class="about-list">
+          <li>根目录 <code>README.md</code> · <code>CONTEXT.md</code> · <code>AGENTS.md</code></li>
+          <li><code>docs/adr/</code> 评分 / Mock / AI 经后端</li>
+          <li><code>docs/output/reports/model-resumes/</code> 样板简历调研 brief</li>
+          <li><code>resume-web/src/DESIGN_SPEC.md</code> · <code>REPLICATION_PROMPT.md</code></li>
         </ul>
       </article>
     </div>
@@ -77,6 +133,7 @@
 </div>
 <div id="toast" class="toast"></div>
 <script src="assets/js/jobs-data.js"></script>
-<script src="assets/js/deepseek-api.js"></script><script src="assets/js/app.js"></script>
+<script src="assets/js/deepseek-api.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>

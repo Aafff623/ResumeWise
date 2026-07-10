@@ -329,3 +329,22 @@ body.modal-open{overflow:hidden}
 .editor-head-right{display:flex;align-items:center;gap:10px;flex:none;margin-left:auto}
 .md-help-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid #c5cff5;background:#eef0ff;color:#4f63ee;font:800 14px/1 Georgia,serif;cursor:pointer;flex:none}
 .md-help-btn:hover{background:#4f63ee;color:#fff;border-color:#4f63ee}
+/* Home guide + mode compare + about wide */
+.guide-steps{display:flex;flex-direction:column;gap:12px;margin-bottom:22px}
+.guide-step{display:flex;gap:16px;align-items:flex-start;padding:18px 18px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-soft)}
+.guide-step-num{width:36px;height:36px;border-radius:12px;background:var(--blue-pale);color:var(--blue);font-weight:900;display:grid;place-items:center;flex:none}
+.guide-step-body h3{margin:0 0 6px;font-size:15px;color:var(--ink)}
+.guide-step-body p{margin:0;font-size:13px;line-height:1.75;color:var(--muted)}
+.mode-compare{padding:20px 18px;margin-top:8px}
+.mode-compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mode-compare-card{padding:16px;border-radius:16px;background:#fafbfc;border:1px solid var(--line)}
+.mode-compare-live{background:linear-gradient(165deg,#f7f8ff,#eefaf6);border-color:#d5defa}
+.mode-compare-card .pill{margin-bottom:10px}
+.mode-compare-card code{font-size:11px;background:#eef0f4;padding:1px 5px;border-radius:4px}
+.about-layout-wide{grid-template-columns:1fr 1fr}
+.about-card-span{grid-column:1/-1}
+.hero-visual .progress span{display:block;height:100%;width:100%;background:linear-gradient(90deg,#4f63ee,#29a97f);border-radius:inherit;transform-origin:left center}
+@media(max-width:1000px){
+  .mode-compare-grid,.about-layout-wide{grid-template-columns:1fr}
+  .about-card-span{grid-column:auto}
+}
