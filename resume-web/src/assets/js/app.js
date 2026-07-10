@@ -256,21 +256,74 @@ function showModelResume(job, resumeId) {
   });
 }
 
+/** Map keyword text → tech-stack theme class (visual only). */
+function keywordThemeClass(keyword) {
+  const s = String(keyword || "").toLowerCase();
+  const rules = [
+    [/java(?!\s*script)/, "kw-java"],
+    [/spring/, "kw-spring"],
+    [/mybatis|hibernate/, "kw-orm"],
+    [/mysql|postgresql|sqlite|\bsql\b/, "kw-sql"],
+    [/redis/, "kw-redis"],
+    [/rest|api|接口/, "kw-api"],
+    [/maven|gradle|npm|vite/, "kw-build"],
+    [/\bgit\b/, "kw-git"],
+    [/vue|element\s*plus|组件/, "kw-vue"],
+    [/javascript|\bjs\b|es6|typescript|\bts\b/, "kw-js"],
+    [/axios|http/, "kw-http"],
+    [/html|css|scss/, "kw-web"],
+    [/测试|用例|缺陷|回归|postman/, "kw-test"],
+    [/需求|原型|调研|文档|axure|figma|用户故事/, "kw-pm"],
+    [/excel|可视化|python|pandas|统计|数据/, "kw-data"]
+  ];
+  for (const [re, cls] of rules) {
+    if (re.test(s)) return cls;
+  }
+  return "kw-default";
+}
+
+function renderKeywordTags(keywords, mode) {
+  // mode: "plain" | "hit" | "miss"
+  return (keywords || [])
+    .map((k) => {
+      const theme = keywordThemeClass(k);
+      const state = mode === "hit" ? " hit" : mode === "miss" ? " miss" : "";
+      return `<span class="tag ${theme}${state}">${escapeHtml(k)}</span>`;
+    })
+    .join("");
+}
+
 function paintJob(jobId) {
   const jobs = window.RW_JOBS;
   const job = jobs?.[jobId];
   if (!job) return;
   localStorage.setItem(STORE.job, jobId);
   const list = qs("#jobList");
-  if (list) {
-    qsa("[data-job]", list).forEach((el) => el.classList.toggle("active", el.dataset.job === jobId));
-  }
-  const kw = qs("#jobKeywords");
-  if (kw) {
-    kw.innerHTML = job.keywords.map((k, i) => `<span class="tag ${i < 2 ? "hit" : ""}">${k}</span>`).join("");
-  }
-  const reqEl = qs("#jobRequirements");
-  if (reqEl) reqEl.textContent = job.requirements;
+  if (!list) return;
+
+  qsa("[data-job]", list).forEach((el) => {
+    const id = el.dataset.job;
+    const isActive = id === jobId;
+    el.classList.toggle("active", isActive);
+
+    // 岗位要求 + 关键词：仅展开在当前选中卡片内部下方
+    el.querySelector(".job-detail")?.remove();
+    if (!isActive) return;
+
+    const j = jobs[id] || job;
+    const detail = document.createElement("div");
+    detail.className = "job-detail";
+    detail.innerHTML = `
+      <div class="job-detail-block">
+        <div class="paper-label">岗位要求摘要</div>
+        <p class="job-req-text">${escapeHtml(j.requirements || "")}</p>
+      </div>
+      <div class="job-detail-block">
+        <div class="paper-label">岗位关键词</div>
+        <div class="tags tags-themed">${renderKeywordTags(j.keywords, "plain")}</div>
+      </div>`;
+    el.appendChild(detail);
+  });
 }
 
 function renderJobPanel() {
@@ -753,22 +806,24 @@ function renderLiveReviewPage() {
       <span class="metric-chip">问题数量 <b>${(data.issues || []).length}</b></span>`;
   }
 
-  // keywords
+  // keywords — 技术栈主题色 + 命中/缺失态
   const rows = qsa(".keyword-row");
   if (rows[0]) {
     const tags = rows[0].querySelector(".tags");
     if (tags) {
-      tags.innerHTML = (data.matchedKeywords || [])
-        .map((k) => `<span class="tag hit">${escapeHtml(k)}</span>`)
-        .join("") || `<span class="caption">无</span>`;
+      const list = data.matchedKeywords || [];
+      tags.innerHTML = list.length
+        ? renderKeywordTags(list, "hit")
+        : `<span class="caption">无</span>`;
     }
   }
   if (rows[1]) {
     const tags = rows[1].querySelector(".tags");
     if (tags) {
-      tags.innerHTML = (data.missingKeywords || [])
-        .map((k) => `<span class="tag miss">${escapeHtml(k)}</span>`)
-        .join("") || `<span class="caption">无</span>`;
+      const list = data.missingKeywords || [];
+      tags.innerHTML = list.length
+        ? renderKeywordTags(list, "miss")
+        : `<span class="caption">无</span>`;
     }
   }
 

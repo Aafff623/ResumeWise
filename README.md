@@ -26,6 +26,7 @@
   <a href="#功能">✨ 功能</a> ·
   <a href="#演示">📱 演示</a> ·
   <a href="#快速开始">🚀 快速开始</a> ·
+  <a href="#使用说明与答辩稿">📘 使用说明</a> ·
   <a href="#架构">🏗️ 架构</a> ·
   <a href="#路线图">🗺️ 路线图</a> ·
   <a href="#文档">📚 文档</a>
@@ -128,6 +129,18 @@ npm run proxy
 2. **配置 API Key**（仅本机 localStorage，不入库）  
 3. 模型选 **DeepSeek V4 Flash** 或 **V4 Pro**  
 4. 填写简历 → 开始 AI 诊断（结果由模型动态生成）
+
+### 使用说明与答辩稿
+
+面向使用方 / 助教 / 答辩的完整文档包：
+
+| 文档 | 路径 |
+|---|---|
+| **项目使用与运行说明** | [`docs/output/reports/client-deliverables/使用与运行说明.md`](docs/output/reports/client-deliverables/使用与运行说明.md) |
+| **演示答辩逐字稿** | [`docs/output/reports/client-deliverables/演示答辩逐字稿.md`](docs/output/reports/client-deliverables/演示答辩逐字稿.md) |
+| 索引 | [`docs/output/reports/client-deliverables/README.md`](docs/output/reports/client-deliverables/README.md) |
+
+产品内也可查看：首页「使用教程」· **关于项目**（双模式与维护说明）。
 
 ### 业务后端（规划中）
 

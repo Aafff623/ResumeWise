@@ -115,3 +115,29 @@ docs(web): clarify mock vs live modes on about page
 - Sync web CONTEXT and resume-web README for current static prototype
 ```
 
+---
+
+## 6. client-deliverables · 使用说明 / 答辩稿 + 岗位卡 UI
+
+- **类型**：docs / feat(ui)
+- **说明**：
+  1. 交付包：使用与运行说明 + 演示答辩逐字稿
+  2. 目标岗位：要求摘要与关键词展开在选中卡片内部下方
+  3. 关键词标签按技术栈主题色着色（诊断页 hit/miss 叠加）
+- **文件**：
+  - `docs/output/reports/client-deliverables/*`
+  - `resume-web/src/optimize.html` · `review.html`
+  - `resume-web/src/assets/js/app.js` · `assets/css/styles.css`
+  - `README.md` · `docs/README.md` · `about.html`
+  - `docs/history/2026-07-10/commit-history.md`
+- **状态**：用户要求完成后 commit + push
+
+### 建议 commit 信息
+
+```
+feat(web): job-card details, themed tags, client guides
+
+- Expand selected job card with requirements and keyword tags
+- Color keyword chips by tech stack; add user guide and demo script
+```
+
