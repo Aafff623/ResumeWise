@@ -152,3 +152,24 @@ feat(web): job-card details, themed tags, client guides
   - `README.md` · `docs/README.md` · `about.html` · 路径引用更新
 - **状态**：用户要求移动后 commit + push
 
+
+## [done] docs(decks): ResumeWise 答辩 PPT 双路线草稿
+
+- 资产模板：`docs/templates/pritzker_2026.pptx` + 解压 media
+- Skill：`.cursor/skills/ppt-master/`（本地，不入库）
+- Route A / B 中间稿已作废；终稿见 `docs/deliver/`
+- 状态：已由 2026-07-11 deliver 终稿替换闭环
+
+## [done] docs(decks): finalize single defense PPT + GPT visual brief
+
+- 终稿已迁至 `docs/deliver/ResumeWise-defense.pptx`
+- GPT brief 已迁至 `docs/deliver/gpt-visual-elements.md`
+- 状态：已由 2026-07-11 deliver 终稿替换闭环
+
+## [done] docs(deliver): PPT 终稿归位 + 页内文案
+
+- 终稿：`docs/deliver/ResumeWise-defense.pptx`（2026-07-11 用桌面调稿覆盖）
+- 页内文案：`docs/deliver/答辩PPT-页内文案.md`
+- GPT brief：`docs/deliver/gpt-visual-elements.md`
+- decks 仅保留迁移说明 README
+

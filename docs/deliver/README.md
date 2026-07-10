@@ -1,22 +1,27 @@
-# 交付给用户 · `docs/deliver`
+# 交付材料（客户 / 答辩用）
 
-本目录专门存放**交付给客户 / 课设使用方**的说明类资产（答辩与使用），与 Agent 任务产物（`docs/output/`）分开。
+与 Agent 内部产物（`docs/output/`）分开存放。
 
-| 文档 | 说明 |
+## 文档与演示稿
+
+| 文件 | 说明 |
 |---|---|
-| [使用与运行说明.md](./使用与运行说明.md) | 环境、启动、完整使用步骤、双模式、FAQ |
-| [演示答辩逐字稿.md](./演示答辩逐字稿.md) | 6～8 分钟口述稿 + 操作提示 + 问答备用 |
+| [使用与运行说明.md](./使用与运行说明.md) | 安装、启动、完整流程、双模式 |
+| [演示答辩逐字稿.md](./演示答辩逐字稿.md) | 上台口语：讲什么、点什么、Q&A |
+| [**答辩PPT-页内文案.md**](./答辩PPT-页内文案.md) | **按页专业文案**，可选择性粘贴进 PPT |
+| [**ResumeWise-defense.pptx**](./ResumeWise-defense.pptx) | **答辩最终展示稿**（唯一 PPT 终稿） |
+| [gpt-visual-elements.md](./gpt-visual-elements.md) | 产品视觉元素 + GPT 生图 brief |
+| [assets/](./assets/) | 界面截图暂替（正式前建议换实机全屏截图） |
 
-## 产品内对应页面
+## 产品内也可对照
 
-| 页面 | 作用 |
-|---|---|
-| `resume-web/src/index.html#demo-flow` | 站内使用教程 |
-| `resume-web/src/about.html` | 维护说明、双模式对照表 |
+- 首页使用教程：`index.html#demo-flow`
+- 关于页：`about.html`
 
-## 运行一句话
+## 最快跑起来
 
 ```bash
 cd resume-web && npm run dev
-# → http://127.0.0.1:5177  · 顶栏保持「演示模式 · Mock」
+# 浏览器打开 http://127.0.0.1:5177
+# 顶栏保持「演示模式 · Mock」
 ```

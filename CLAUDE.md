@@ -33,7 +33,8 @@
 | `docs/output/handoff/{theme}/` | 任务 handoff；完结 → `handoff/archive/` |
 | `docs/knowledge/` | 可迁移知识沉淀 |
 | `docs/images/readme/` | README 直接引用的终稿配图 |
-| `docs/output/decks/` | 幻灯片 |
+| `docs/deliver/` | 交付用户：运行说明 · 答辩稿 · **答辩 PPT 终稿** |
+| `docs/output/decks/` | （历史/空置）幻灯片中间产物；终稿已归 `docs/deliver/` |
 | `docs/history/{YYYY-MM-DD}/` | 当日改动记录（攒批合并用） |
 | `resume-web/` | Vue3 前端源码 |
 | `resume-api/` | Spring Boot 后端源码 |
