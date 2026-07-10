@@ -21,6 +21,7 @@ docs/
 ├── knowledge/          可迁移知识沉淀
 ├── history/            攒批 commit 记录
 ├── images/readme/      README 配图
+├── deliver/            ★ 交付给用户（运行说明 · 答辩稿）
 └── output/
     ├── reports/
     │   ├── archive/{theme}/
@@ -57,6 +58,6 @@ docs/
 | `docs/adr/0002-ai-mock-mode.md` | AI Mock 模式 | **Accepted** |
 | `docs/adr/0003-llm-via-backend-only.md` | 大模型经后端调用 | **Accepted** |
 | `docs/output/reports/readme-diagrams/` | README 配图 brief | **draft** |
-| `docs/output/reports/client-deliverables/` | 使用与运行说明 · 答辩逐字稿 | **交付** |
+| `docs/deliver/` | 使用与运行说明 · 答辩逐字稿（交付用户） | **交付** |
 | `resume-web/src/` | 静态可演示前端 SRC | **当前交付** |
 | `resume-api/` | Spring Boot 后端 | 待业务 PRD 后建 |

@@ -141,3 +141,14 @@ feat(web): job-card details, themed tags, client guides
 - Color keyword chips by tech stack; add user guide and demo script
 ```
 
+---
+
+## 7. docs/deliver · 交付文档归位
+
+- **类型**：docs / chore
+- **说明**：将用户答辩/使用资产从 `docs/output/reports/client-deliverables/` 迁至 `docs/deliver/`
+- **文件**：
+  - `docs/deliver/*`（三文件自 client-deliverables 移动）
+  - `README.md` · `docs/README.md` · `about.html` · 路径引用更新
+- **状态**：用户要求移动后 commit + push
+

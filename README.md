@@ -136,9 +136,9 @@ npm run proxy
 
 | 文档 | 路径 |
 |---|---|
-| **项目使用与运行说明** | [`docs/output/reports/client-deliverables/使用与运行说明.md`](docs/output/reports/client-deliverables/使用与运行说明.md) |
-| **演示答辩逐字稿** | [`docs/output/reports/client-deliverables/演示答辩逐字稿.md`](docs/output/reports/client-deliverables/演示答辩逐字稿.md) |
-| 索引 | [`docs/output/reports/client-deliverables/README.md`](docs/output/reports/client-deliverables/README.md) |
+| **项目使用与运行说明** | [`docs/deliver/使用与运行说明.md`](docs/deliver/使用与运行说明.md) |
+| **演示答辩逐字稿** | [`docs/deliver/演示答辩逐字稿.md`](docs/deliver/演示答辩逐字稿.md) |
+| 索引 | [`docs/deliver/README.md`](docs/deliver/README.md) |
 
 产品内也可查看：首页「使用教程」· **关于项目**（双模式与维护说明）。
 
