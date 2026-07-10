@@ -1,7 +1,7 @@
 ---
 theme: ui-prototype
 task: prototype-images
-status: awaiting-review
+status: in-progress
 updated: 2026-07-10
 ---
 
@@ -9,35 +9,31 @@ updated: 2026-07-10
 
 ## 目标
 
-按 `docs/output/reports/ui-prototype/ui-prototype-brief.md` 产出前端高保真原型图，覆盖 4 个主流程页 + 2 个可选状态变体，风格专业化、小学期可答辩，并补充少量专业插图。
+前端静态原型以 **GPT 静态包** 为最高优先级标杆；`html-src/` 已用该包完整覆盖。
 
 ## 已完成
 
-- 阅读 `CONTEXT.md`、web CONTEXT、workflow、brief 等规范资产
-- 采用 **HTML/CSS 高保真原型 + Playwright 截图**
-- 桌面端 6 张 PNG + 移动端 4 张 PNG
-- AI Hero 插图；页面内 SVG 图标
-- 预览入口 `html-src/index.html`（**非登录页**；产品范围无登录）
-- 用户授权分批 commit：Web 桌面 / 移动端
+- design v1（本地专业蓝紫版）曾 commit / push
+- 用户确认改以 GPT 包为标杆
+- **覆盖** `docs/output/reports/ui-prototype/html-src/` 为 GPT 四页 + `assets/css` + `assets/js` + 截图
+- PNG 同步到 `docs/images/prototype/prototype-{home,optimize,review,result}.png`
+- ZIP 保留：`docs/output/reports/ui-prototype/ResumeWise-static-prototype.zip`
+- 解压备份：`docs/output/reports/ui-prototype/gpt-static-prototype/`
 
-## 待 Review（当前交付）
+## 当前标杆入口
 
-| 文件 | 说明 |
-|---|---|
-| `docs/images/prototype/prototype-*.png` | 桌面 6 + 移动 4 |
-| `docs/images/prototype/assets/*` | 插图素材 |
-| `docs/output/reports/ui-prototype/html-src/*` | HTML 源 + `index.html` 入口 |
+```text
+docs/output/reports/ui-prototype/html-src/index.html
+```
 
-### 如何验证
+预览：`python -m http.server 5177 --directory docs/output/reports/ui-prototype/html-src`
 
-1. 双击 PNG，或启动静态服务打开 `html-src/index.html`
-2. 桌面：左右分栏；移动：上下堆叠
-3. 确认无登录 / PDF 上传 / 聊天 / 招聘列表
+## 待 Review
+
+- 用户浏览器确认 GPT 视觉与交互
+- 通过后可再 commit「prototype v2 = GPT 标杆」
+- 下一步 Vue 复刻以 `html-src/REPLICATION_PROMPT.md` 为准
 
 ## 阻塞 / 问题
 
-- 无。若用户坚持要「登录界面」，与 CONTEXT 冲突，需单独确认后再做演示壳。
-
-## 下次（仅 Review 通过后）
-
-- 按原型复刻 Vue3 + Element Plus 页面（需业务 PRD `approved`）
+- 无

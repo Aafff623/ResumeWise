@@ -69,3 +69,14 @@ docs(ui-prototype): add mobile UI prototype screenshots
 - home/optimize/review/result mobile (390px)
 - mobile.css + mobile HTML sources + preview index
 ```
+
+---
+
+## 3. ui-prototype · GPT 标杆 + 样板/双模式原型
+
+- **类型**：docs / design
+- **说明**：以 GPT 静态包覆盖 `html-src`；补充样板简历模块、演示/真实模式设置（DeepSeek 配置入口）；新增样板简历调研 brief + QA。
+- **关键路径**：
+  - `docs/output/reports/ui-prototype/html-src/`
+  - `docs/output/reports/model-resumes/`
+- **状态**：awaiting-review（未自动 commit）
