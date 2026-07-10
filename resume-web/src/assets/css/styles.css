@@ -322,3 +322,10 @@ body.modal-open{overflow:hidden}
 .md-help-example-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px}
 .md-help-preview{min-height:160px;max-height:240px;overflow:auto;border:1px solid #e8ebf0;border-radius:10px;padding:14px 16px;background:#fff}
 .md-help-tabs{margin:0}
+.panel-head-editor{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.editor-head-left{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.editor-head-left .section-title{margin:0}
+.editor-head-left .caption{margin:0}
+.editor-head-right{display:flex;align-items:center;gap:10px;flex:none;margin-left:auto}
+.md-help-btn{width:28px;height:28px;border-radius:50%;border:1.5px solid #c5cff5;background:#eef0ff;color:#4f63ee;font:800 14px/1 Georgia,serif;cursor:pointer;flex:none}
+.md-help-btn:hover{background:#4f63ee;color:#fff;border-color:#4f63ee}
