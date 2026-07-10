@@ -79,4 +79,14 @@ docs(ui-prototype): add mobile UI prototype screenshots
 - **关键路径**：
   - `docs/output/reports/ui-prototype/html-src/`
   - `docs/output/reports/model-resumes/`
-- **状态**：awaiting-review（未自动 commit）
+- **状态**：已多批 commit / push；见后续条目
+
+## 4. ui-prototype · DeepSeek 接入 + README 收尾
+
+- **类型**：feat / docs
+- **说明**：真实模式经本机代理调用 DeepSeek；Markdown 帮助；README Showcase 截图与配图；deliver 维护 handoff。
+- **文件要点**：
+  - `html-src/assets/js/deepseek-api.js` · `deepseek-proxy.py`
+  - `html-src/optimize.html` · `app.js` · `styles.css`
+  - `docs/images/readme/*` · `README.md`
+- **状态**：awaiting-review
