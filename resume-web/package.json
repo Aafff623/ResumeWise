@@ -1,0 +1,11 @@
+{
+  "name": "resumewise-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ResumeWise static high-fidelity prototype (HTML/CSS/JS). Vue3 migration planned.",
+  "scripts": {
+    "dev": "npx --yes serve src -l 5177",
+    "start": "npx --yes serve src -l 5177",
+    "proxy": "python src/deepseek-proxy.py"
+  }
+}

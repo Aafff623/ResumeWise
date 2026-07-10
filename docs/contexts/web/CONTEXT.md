@@ -13,22 +13,42 @@
 | 语言 | JavaScript（非 TS，控制小学期复杂度） |
 | 路由 | Vue Router |
 
-## 目录结构（计划）
+## 目录结构（当前 · 静态原型 SRC）
 
 ```
 resume-web/
-├── index.html
+├── package.json         # npm run dev / proxy
+├── README.md
+└── src/                 # ★ 规范源码根
+    ├── index.html       # 首页
+    ├── optimize.html    # 填写简历
+    ├── review.html      # AI 诊断
+    ├── result.html      # 优化结果
+    ├── about.html
+    ├── deepseek-proxy.py
+    ├── assets/css/styles.css
+    ├── assets/js/       # app.js · jobs-data · markdown · deepseek-api
+    ├── DESIGN_SPEC.md
+    └── REPLICATION_PROMPT.md
+```
+
+## 目录结构（规划 · Vue3 复刻后）
+
+```
+resume-web/
 ├── package.json
 ├── vite.config.js
 └── src/
     ├── main.js
     ├── App.vue
     ├── router/index.js
-    ├── api/             # axios 封装 + 接口调用
-    ├── views/           # 页面：Home / Optimize / Review / Result
-    ├── components/      # 复用组件（评分卡、问题项、对照视图）
+    ├── api/
+    ├── views/
+    ├── components/
     └── assets/
 ```
+
+> 开发与演示以 **`resume-web/src`** 为准；`docs/output/reports/ui-prototype/` 仅保留 brief / zip / 历史说明。
 
 ## 页面（4 个，见 PRD）
 

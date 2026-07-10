@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ResumeWise · 填写简历</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <div class="container">
+    <!-- 顶栏：品牌 + 模式切换 +（真实模式才显示）配置 API Key -->
+    <header class="nav">
+      <a class="brand" href="index.html"><span class="brand-mark"></span><span>ResumeWise</span></a>
+      <div class="nav-right">
+        <div class="mode-toggle" role="group" aria-label="运行模式">
+          <button type="button" class="mode-toggle-btn active" data-mode-toggle="mock">演示模式 · Mock</button>
+          <button type="button" class="mode-toggle-btn" data-mode-toggle="live">真实模式 · DeepSeek</button>
+        </div>
+        <button type="button" class="btn btn-light btn-sm" id="btnApiKey" data-open-settings hidden>配置 API Key</button>
+      </div>
+    </header>
+
+    <section class="page-head page-head-opt">
+      <div class="page-head-main">
+        <div class="eyebrow">Step 01 · Resume &amp; Target Job</div>
+        <h1>先让系统认识你的简历与目标岗位</h1>
+        <p class="page-sub">
+          诊断依据：用户简历 + 岗位要求/关键词 + 样板简历（Agent 评判锚点）。AI 经后端转发；演示/真实模式可在上方切换。
+        </p>
+      </div>
+    </section>
+
+    <!-- 步骤条：在模式切换区域下方（不在顶栏） -->
+    <div class="flow-stepper" aria-label="流程步骤">
+      <div class="flow-step active"><span class="flow-step-num">1</span><span class="flow-step-label">填写简历</span></div>
+      <span class="flow-step-line"></span>
+      <div class="flow-step"><span class="flow-step-num">2</span><span class="flow-step-label">AI 诊断</span></div>
+      <span class="flow-step-line"></span>
+      <div class="flow-step"><span class="flow-step-num">3</span><span class="flow-step-label">优化结果</span></div>
+    </div>
+
+    <div class="actionbar actionbar-top">
+      <div class="privacy">
+        <span class="privacy-icon">✓</span>
+        <div>
+          <div class="section-title">准备诊断</div>
+          <div class="caption">确认 Markdown 简历与岗位后开始；可点岗位旁的「样板简历参考」</div>
+        </div>
+      </div>
+      <div class="page-actions">
+        <a class="btn btn-light" href="index.html">返回首页</a>
+        <a class="btn btn-blue" href="review.html" data-loading-link>开始 AI 诊断 <span>→</span></a>
+      </div>
+    </div>
+
+    <section class="workspace workspace-3">
+      <!-- Markdown 简历编辑器 -->
+      <div class="panel editor-panel">
+        <div class="panel-head panel-head-editor">
+          <div class="editor-head-left">
+            <span class="section-title">我的简历</span>
+            <button type="button" class="md-help-btn" id="mdHelpBtn" title="Markdown 简易教程" aria-label="Markdown 帮助">?</button>
+            <div class="md-mode-tabs" role="tablist">
+              <button type="button" class="md-mode-tab active" data-md-mode="edit">编辑模式</button>
+              <button type="button" class="md-mode-tab" data-md-mode="preview">渲染预览</button>
+            </div>
+          </div>
+          <div class="caption editor-head-cap">支持 Markdown · 默认可直接粘贴 AI 生成的文本后点「渲染预览」</div>
+        </div>
+        <div class="editor-body md-editor">
+          <div class="md-tip" role="note">
+            <strong>使用提示：</strong>可把 AI 回答的 Markdown 直接复制粘贴到下方编辑框，再点「渲染预览」查看排版。点「我的简历」右侧 <b>?</b> 可查看语法与最小示例。
+          </div>
+          <div class="md-toolbar">
+            <button type="button" class="editor-tab" data-sample>填入示例</button>
+            <span class="caption"># 标题 · **加粗** · - 列表</span>
+          </div>
+          <textarea id="resumeText" class="resume-input md-input" spellcheck="false"># 张驰｜软件工程专业
+
+**求职方向：** Java 后端开发实习生
+
+## 教育经历
+太原某高校 · 软件工程 · 本科
+
+## 专业技能
+- 熟悉 Java 基础语法、集合框架和面向对象
+- 了解 Spring Boot、MyBatis
+- 会使用 Git 完成版本管理
+
+## 项目经历｜校园活动管理系统
+使用 Spring Boot + Vue 完成前后端分离开发，负责活动发布、报名与审核模块。通过 RESTful API 完成前后端数据交互，并使用 Git 进行协作。
+
+## 校园经历
+参与学院软件创新实践项目，负责功能实现与演示材料整理。</textarea>
+          <div id="resumePreview" class="md-preview" hidden></div>
+          <div class="editor-foot">
+            <span id="charCount">约 0 字 · 已缓存到 localStorage</span>
+            <button type="button" class="btn btn-ghost" id="clearResume">清空</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel job-panel">
+        <div class="panel-head">
+          <div>
+            <div class="section-title">目标岗位</div>
+            <div class="caption">单选岗位；右侧按钮查看该岗样板简历</div>
+          </div>
+          <span class="pill">5 个岗位</span>
+        </div>
+        <div class="job-list" id="jobList">
+          <div class="job active" data-job="java">
+            <span class="radio"></span>
+            <div class="job-main">
+              <b>Java 后端开发实习生</b>
+              <small>Spring Boot · REST · Git</small>
+            </div>
+            <button type="button" class="job-model-btn" data-open-model="java">样板简历参考</button>
+          </div>
+          <div class="job" data-job="frontend">
+            <span class="radio"></span>
+            <div class="job-main">
+              <b>前端开发实习生（Vue）</b>
+              <small>Vue3 · JS · 组件化</small>
+            </div>
+            <button type="button" class="job-model-btn" data-open-model="frontend">样板简历参考</button>
+          </div>
+          <div class="job" data-job="test">
+            <span class="radio"></span>
+            <div class="job-main">
+              <b>软件测试实习生</b>
+              <small>用例 · 缺陷 · 接口</small>
+            </div>
+            <button type="button" class="job-model-btn" data-open-model="test">样板简历参考</button>
+          </div>
+          <div class="job" data-job="product">
+            <span class="radio"></span>
+            <div class="job-main">
+              <b>产品助理实习生</b>
+              <small>需求 · 原型 · 文档</small>
+            </div>
+            <button type="button" class="job-model-btn" data-open-model="product">样板简历参考</button>
+          </div>
+          <div class="job" data-job="data">
+            <span class="radio"></span>
+            <div class="job-main">
+              <b>数据分析实习生</b>
+              <small>SQL · Excel · 可视化</small>
+            </div>
+            <button type="button" class="job-model-btn" data-open-model="data">样板简历参考</button>
+          </div>
+        </div>
+        <div class="job-keywords">
+          <div class="paper-label">岗位关键词</div>
+          <div class="tags" id="jobKeywords" style="margin-top:10px"></div>
+        </div>
+        <div class="job-req">
+          <div class="paper-label">岗位要求摘要</div>
+          <p id="jobRequirements" class="job-req-text"></p>
+        </div>
+      </aside>
+    </section>
+  </div>
+</div>
+
+<!-- Markdown 简易教程 -->
+<div id="mdHelpModal" class="modal" hidden>
+  <div class="modal-backdrop" data-close-md-help></div>
+  <div class="modal-card modal-card-mdhelp" role="dialog" aria-labelledby="mdHelpTitle">
+    <div class="modal-head">
+      <div>
+        <div class="section-title" id="mdHelpTitle">Markdown 语法教学</div>
+        <div class="caption">在编辑器里这样写 · 下方可切换看最小示例的源码 / 预览</div>
+      </div>
+      <button type="button" class="icon-btn" data-close-md-help aria-label="关闭">×</button>
+    </div>
+    <div class="modal-body md-help-body">
+      <table class="md-help-table">
+        <thead>
+          <tr><th>效果</th><th>编辑器里怎么写</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>一级标题</td><td><code># 张三｜计算机专业</code></td></tr>
+          <tr><td>二级标题</td><td><code>## 教育背景</code></td></tr>
+          <tr><td>三级标题</td><td><code>### 校园项目</code></td></tr>
+          <tr><td>加粗</td><td><code>**求职意向：前端实习**</code></td></tr>
+          <tr><td>斜体</td><td><code>*补充说明*</code></td></tr>
+          <tr><td>无序列表</td><td><code>- 熟悉 Vue3</code></td></tr>
+          <tr><td>有序列表</td><td><code>1. 需求分析</code></td></tr>
+          <tr><td>行内代码</td><td><code>`Spring Boot`</code></td></tr>
+          <tr><td>分割线</td><td><code>---</code></td></tr>
+          <tr><td>链接</td><td><code>[作品集](https://example.com)</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="md-help-example">
+        <div class="md-help-example-bar">
+          <span class="paper-label">最小示例（可对照学习）</span>
+          <div class="md-mode-tabs md-help-tabs" role="tablist">
+            <button type="button" class="md-mode-tab active" data-md-help-view="source">源码</button>
+            <button type="button" class="md-mode-tab" data-md-help-view="preview">预览</button>
+          </div>
+        </div>
+        <pre class="md-help-pre" id="mdHelpSource"># 李华｜软件工程
+**求职意向：** Java 后端实习生
+
+## 专业技能
+- Java / Spring Boot
+- MySQL / Git
+
+## 项目经历
+**校园选课系统｜后端**
+- 负责报名接口 6 个 REST API
+- 使用 MyBatis 完成数据持久化</pre>
+        <div class="md-preview md-help-preview" id="mdHelpPreview" hidden></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button type="button" class="btn btn-blue" data-close-md-help>知道了，去编辑</button>
+    </div>
+  </div>
+</div>
+
+<!-- 样板简历弹窗（保留） -->
+<div id="modelModal" class="modal model-browser-modal" hidden>
+  <div class="modal-backdrop" data-close-model></div>
+  <div class="modal-card modal-card-wide" role="dialog">
+    <div class="modal-head">
+      <div>
+        <div class="section-title" id="modelModalTitle">样板简历参考</div>
+        <div class="caption" id="modelModalSub">选择样板进行浏览</div>
+      </div>
+      <button type="button" class="icon-btn" data-close-model aria-label="关闭">×</button>
+    </div>
+    <div class="model-browser">
+      <aside class="model-browser-list" id="modelList"></aside>
+      <div class="model-browser-main">
+        <div class="model-browser-toolbar">
+          <div class="model-browser-meta">
+            <span class="pill green" id="modelResumeTitle">—</span>
+            <p class="caption model-browser-note" id="modelResumeNote"></p>
+          </div>
+          <div class="model-browser-actions">
+            <button type="button" class="btn btn-light btn-sm" id="copyModelResume">复制正文</button>
+            <button type="button" class="btn btn-blue btn-sm" id="useModelAsSample">填入我的简历</button>
+          </div>
+        </div>
+        <div class="model-pre-wrap">
+          <div class="md-preview model-md-view model-pre-modal" id="modelResumeBody"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<pre id="sampleResume" hidden># 张驰｜软件工程专业
+
+**求职方向：** Java 后端开发实习生
+
+## 教育经历
+太原某高校 · 软件工程 · 本科
+
+## 专业技能
+- 熟悉 Java 基础语法、集合框架和面向对象
+- 了解 Spring Boot、MyBatis
+- 会使用 Git 完成版本管理
+
+## 项目经历｜校园活动管理系统
+使用 Spring Boot + Vue 完成前后端分离开发，负责活动发布、报名与审核模块。通过 RESTful API 完成前后端数据交互，并使用 Git 进行协作。
+
+## 校园经历
+参与学院软件创新实践项目，负责功能实现与演示材料整理。</pre>
+
+<div id="loading" class="loading-overlay loading-ai">
+  <div class="ai-loader">
+    <div class="ai-orb">
+      <div class="ai-ring r1"></div>
+      <div class="ai-ring r2"></div>
+      <div class="ai-ring r3"></div>
+      <div class="ai-core"></div>
+    </div>
+    <b>正在生成诊断结果</b>
+    <div class="caption" id="loadingCaption">关键词匹配与 AI 内容分析正在进行</div>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+<script src="assets/js/jobs-data.js"></script>
+<script src="assets/js/markdown-lite.js"></script>
+<script src="assets/js/deepseek-api.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  document.getElementById('clearResume')?.addEventListener('click', () => {
+    const el = document.querySelector('#resumeText');
+    if (!el) return;
+    el.value = '';
+    el.dispatchEvent(new Event('input'));
+  });
+</script>
+</body>
+</html>

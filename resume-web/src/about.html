@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ResumeWise · 关于项目</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <div class="container">
+    <header class="nav">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"></span>
+        <span>ResumeWise</span>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html">首页</a>
+        <a href="optimize.html">智能诊断</a>
+        <a href="index.html#demo-flow">演示流程</a>
+        <a class="active" href="about.html">关于项目</a>
+      </nav>
+      <div class="nav-right">
+        <div class="mode-toggle" role="group" aria-label="运行模式">
+          <button type="button" class="mode-toggle-btn active" data-mode-toggle="mock">演示模式 · Mock</button>
+          <button type="button" class="mode-toggle-btn" data-mode-toggle="live">真实模式 · DeepSeek</button>
+        </div>
+        <button type="button" class="btn btn-light btn-sm" id="btnApiKey" data-open-settings hidden>配置 API Key</button>
+      </div>
+    </header>
+
+    <section class="page-head">
+      <div>
+        <div class="eyebrow">About</div>
+        <h1>关于 ResumeWise</h1>
+      </div>
+      <a class="btn btn-blue" href="optimize.html">开始智能优化 →</a>
+    </section>
+
+    <div class="about-layout">
+      <article class="panel about-card">
+        <div class="section-title">项目定位</div>
+        <p class="about-p">面向大学生求职场景的 AI 简历诊断、岗位匹配与优化<strong>演示系统</strong>（大二小学期）。完成闭环：</p>
+        <p class="about-code">输入简历 → 选择目标岗位 → AI 诊断 → 展示问题 → 生成优化版本</p>
+      </article>
+
+      <article class="panel about-card">
+        <div class="section-title">技术栈</div>
+        <ul class="about-list">
+          <li>前端：Vue3 · Vite · Element Plus · Axios（业务实现阶段）</li>
+          <li>后端：Spring Boot 3 · REST · 无数据库</li>
+          <li>数据：Mock JSON + 浏览器 localStorage</li>
+          <li>AI：仅后端调用；支持 AI Mock 模式</li>
+        </ul>
+      </article>
+
+      <article class="panel about-card">
+        <div class="section-title">评分说明</div>
+        <p class="about-p">综合评分 = 关键词匹配分 × 40% + AI 内容分 × 60%。关键词分本地计算，稳定可解释；AI 内容分由大模型评估表达与项目质量。</p>
+      </article>
+
+      <article class="panel about-card">
+        <div class="section-title">范围边界</div>
+        <ul class="about-list">
+          <li>不做：登录注册、数据库、招聘爬虫、PDF/Word 解析、企业端</li>
+          <li>不做：多轮聊天 Agent、自动投递</li>
+          <li>必须：AI 经后端调用；Mock 模式可独立演示</li>
+        </ul>
+      </article>
+    </div>
+
+    <footer class="site-foot">
+      <span>大二小学期演示项目 · 非招聘平台</span>
+      <a href="index.html">返回首页</a>
+    </footer>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+<script src="assets/js/jobs-data.js"></script>
+<script src="assets/js/deepseek-api.js"></script><script src="assets/js/app.js"></script>
+</body>
+</html>

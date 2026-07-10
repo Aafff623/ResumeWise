@@ -53,8 +53,8 @@
 
 | 层 | 技术 | 路径 |
 |---|---|---|
-| 前端 | Vue3 · Vite · Element Plus · Axios | `resume-web/` |
-| 后端 | Spring Boot 3 · Spring Web · Jackson · Lombok | `resume-api/` |
+| 前端 | 当前：`resume-web/src` 静态原型（HTML/CSS/JS）；规划：Vue3 · Vite · Element Plus · Axios | `resume-web/` |
+| 后端 | Spring Boot 3 · Spring Web · Jackson · Lombok（规划中） | `resume-api/` |
 | 数据 | `resources/mock/*.json` + 前端 `localStorage` | — |
 | 大模型 | 后端调用（可配置 Mock） | — |
 
@@ -78,8 +78,8 @@
 │   ├── history/              # 攒批 commit 记录
 │   ├── images/readme/        # README 配图
 │   └── output/               # PRD、handoff、decks
-├── resume-web/               # Vue3 前端
-└── resume-api/               # Spring Boot 后端
+├── resume-web/               # 前端工程（源码在 resume-web/src）
+└── resume-api/               # Spring Boot 后端（规划中）
 ```
 
 ## 常用约定

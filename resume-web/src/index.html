@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ResumeWise · AI 简历诊断与优化</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <div class="container">
+    <header class="nav">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"></span>
+        <span>ResumeWise</span>
+      </a>
+      <nav class="nav-links">
+        <a class="active" href="index.html">首页</a>
+        <a href="optimize.html">智能诊断</a>
+        <a href="#demo-flow">演示流程</a>
+        <a href="about.html">关于项目</a>
+      </nav>
+      <div class="nav-right">
+        <div class="mode-toggle" role="group" aria-label="运行模式">
+          <button type="button" class="mode-toggle-btn active" data-mode-toggle="mock">演示模式 · Mock</button>
+          <button type="button" class="mode-toggle-btn" data-mode-toggle="live">真实模式 · DeepSeek</button>
+        </div>
+        <button type="button" class="btn btn-light btn-sm" id="btnApiKey" data-open-settings hidden>配置 API Key</button>
+      </div>
+    </header>
+
+    <main class="home home-landing">
+      <!-- Landing hero：只做价值主张 + 入口 -->
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">AI Resume Intelligence</div>
+          <h1>让简历更像<br><em>岗位正在寻找的人</em></h1>
+          <p>粘贴简历，选择目标岗位。ResumeWise 会先给出可解释的匹配评分，再由 AI 定位表达、项目和技能问题，并生成一份更对口的优化版本。</p>
+          <div class="cta">
+            <a class="btn btn-dark" href="optimize.html">开始智能优化 <span>→</span></a>
+            <a class="btn btn-light" href="#demo-flow">查看演示流程</a>
+          </div>
+          <div class="trust">
+            <span><i>✓</i>5 个示例岗位</span>
+            <span><i>✓</i>AI 经后端调用</span>
+            <span><i>✓</i>无需数据库</span>
+            <span><i>✓</i>支持 Mock 演示</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="paper-stack">
+            <div class="resume-paper">
+              <div class="paper-top">
+                <div class="avatar"></div>
+                <div class="paper-name">
+                  <div class="line dark" style="width:108px"></div>
+                  <div class="line" style="width:156px"></div>
+                </div>
+                <div class="score"><strong>82</strong></div>
+              </div>
+              <div class="paper-block">
+                <div class="paper-label">岗位关键词覆盖</div>
+                <div class="keyword-grid">
+                  <div class="keyword-chip good">Java · Spring Boot</div>
+                  <div class="keyword-chip good">RESTful API</div>
+                  <div class="keyword-chip">MySQL</div>
+                  <div class="keyword-chip">Git · Maven</div>
+                </div>
+              </div>
+              <div class="paper-columns">
+                <div>
+                  <div class="paper-box">
+                    <div class="paper-label">技能概览</div>
+                    <div class="mini-tags">
+                      <span>Java</span><span>Vue</span><span class="bad">Redis</span><span>Git</span>
+                    </div>
+                  </div>
+                  <div class="paper-box" style="min-height:50px;margin-top:10px">
+                    <div class="line dark" style="width:58px"></div>
+                    <div class="line" style="width:85px"></div>
+                  </div>
+                </div>
+                <div class="paper-box big">
+                  <div class="paper-label">项目经历</div>
+                  <div class="line dark" style="width:96px"></div>
+                  <div class="line" style="width:100%"></div>
+                  <div class="line" style="width:92%"></div>
+                  <div class="line" style="width:84%"></div>
+                  <div class="line" style="width:95%"></div>
+                  <div class="line" style="width:72%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ai-seal">AI</div>
+          <div class="float-note note-a">
+            <b>岗位匹配度 76%</b>
+            <span style="color:#7f8796">关键词覆盖稳定</span>
+            <div class="progress"><span></span></div>
+          </div>
+          <div class="float-note note-b">
+            <b>已定位 4 个问题</b>
+            <span style="color:#7f8796">项目描述 · 技能表达</span>
+          </div>
+          <div class="float-note note-c">
+            <b style="color:#27745d">✓ 可解释评分</b>
+            <span style="color:#7f8796">本地 40% + AI 60%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 下拉：演示流程（亮色卡片，非业务功能区） -->
+      <section id="demo-flow" class="landing-section">
+        <div class="landing-section-head">
+          <div class="eyebrow">Demo Flow</div>
+          <h2>演示流程</h2>
+          <p>完整闭环三步。点击「开始智能优化」进入业务页后，按此顺序操作即可。</p>
+        </div>
+        <div class="demo-flow-grid">
+          <article class="demo-card">
+            <div class="demo-num">01</div>
+            <h3>输入简历</h3>
+            <p>粘贴纯文本，或一键使用示例简历，内容自动缓存到本地。</p>
+          </article>
+          <article class="demo-card">
+            <div class="demo-num">02</div>
+            <h3>选择目标岗位</h3>
+            <p>从 5 个 Mock 岗位中单选，系统按岗位关键词进行匹配。</p>
+          </article>
+          <article class="demo-card">
+            <div class="demo-num">03</div>
+            <h3>AI 诊断与优化</h3>
+            <p>查看可解释评分与结构化问题，再生成优化版并对照导出。</p>
+          </article>
+        </div>
+        <div class="demo-flow-cta">
+          <a class="btn btn-blue" href="optimize.html">进入智能优化 <span>→</span></a>
+          <span class="caption">功能模块在下一页，不在首页直接操作</span>
+        </div>
+      </section>
+
+      <!-- 能力摘要（轻量，非表单） -->
+      <section class="landing-section landing-section-alt">
+        <div class="landing-section-head">
+          <div class="eyebrow">What you get</div>
+          <h2>你会得到什么</h2>
+          <p>评分可解释、问题可落地、优化版可对照——为小学期演示设计的完整链路。</p>
+        </div>
+        <div class="value-grid">
+          <div class="value-card">
+            <b>可解释评分</b>
+            <span>关键词匹配 40% + AI 内容 60%</span>
+          </div>
+          <div class="value-card">
+            <b>结构化问题</b>
+            <span>类型 · 描述 · 优化建议</span>
+          </div>
+          <div class="value-card">
+            <b>对照与导出</b>
+            <span>原始 ↔ 优化 · 复制 / .txt</span>
+          </div>
+          <div class="value-card">
+            <b>演示鲁棒</b>
+            <span>AI Mock 模式，无 Key 也能跑通</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-foot">
+      <span>大二小学期演示项目 · 非招聘平台</span>
+      <a href="about.html">关于项目</a>
+    </footer>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+<script src="assets/js/jobs-data.js"></script>
+<script src="assets/js/deepseek-api.js"></script><script src="assets/js/app.js"></script>
+</body>
+</html>

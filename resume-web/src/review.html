@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ResumeWise · AI 诊断结果</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="app">
+  <div class="container">
+    <header class="nav">
+      <a class="brand" href="index.html"><span class="brand-mark"></span><span>ResumeWise</span></a>
+      <div class="nav-right">
+        <div class="mode-toggle" role="group">
+          <button type="button" class="mode-toggle-btn active" data-mode-toggle="mock">演示模式 · Mock</button>
+          <button type="button" class="mode-toggle-btn" data-mode-toggle="live">真实模式 · DeepSeek</button>
+        </div>
+        <button type="button" class="btn btn-light btn-sm" id="btnApiKey" data-open-settings hidden>配置 API Key</button>
+      </div>
+    </header>
+
+    <section class="page-head">
+      <div>
+        <div class="eyebrow">AI Review Report</div>
+        <h1>针对「Java 后端开发实习生」的诊断结果</h1>
+      </div>
+      <div class="page-actions">
+        <a class="btn btn-light" href="optimize.html">重新诊断</a>
+        <a class="btn btn-blue" href="result.html" data-loading-link>生成优化版本 →</a>
+      </div>
+    </section>
+
+    <div class="flow-stepper" aria-label="流程步骤">
+      <div class="flow-step done"><span class="flow-step-num">1</span><span class="flow-step-label">填写简历</span></div>
+      <span class="flow-step-line"></span>
+      <div class="flow-step active"><span class="flow-step-num">2</span><span class="flow-step-label">AI 诊断</span></div>
+      <span class="flow-step-line"></span>
+      <div class="flow-step"><span class="flow-step-num">3</span><span class="flow-step-label">优化结果</span></div>
+    </div>
+
+    <div class="review-layout">
+      <main class="review-main">
+        <!-- 综合评分：按分值情绪色 -->
+        <section class="panel score-hero score-hero-v2" data-score="82">
+          <div class="score-ring-card" id="overallScoreCard" data-score="82">
+            <div class="score-ring-visual" style="--score:82">
+              <div class="score-ring-center">
+                <strong id="overallScoreVal">82</strong>
+                <span>综合评分</span>
+              </div>
+            </div>
+            <div class="score-mood" id="overallScoreMood">表现良好 · 仍有提升空间</div>
+            <div class="score-formula">关键词 40% + AI 内容 60%</div>
+          </div>
+          <div class="summary">
+            <span class="pill green">AI 诊断摘要</span>
+            <h2>基础能力匹配，但项目经历缺少「结果」与「个人贡献」</h2>
+            <p>简历具备 Java 与 Spring Boot 基础，关键词覆盖尚可。主要问题集中在项目描述偏功能罗列、成果不可量化，以及 MySQL / Maven 等岗位关键词呈现不足。</p>
+            <div class="metric-chips">
+              <span class="metric-chip">关键词匹配 <b>76</b></span>
+              <span class="metric-chip">AI 内容评分 <b>86</b></span>
+              <span class="metric-chip">问题数量 <b>4</b></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel keyword-panel">
+          <div class="section-title">岗位关键词覆盖</div>
+          <div class="keyword-row">
+            <div class="caption">已匹配</div>
+            <div class="tags">
+              <span class="tag hit">Java</span>
+              <span class="tag hit">Spring Boot</span>
+              <span class="tag hit">RESTful API</span>
+              <span class="tag hit">Git</span>
+            </div>
+          </div>
+          <div class="keyword-row">
+            <div class="caption">建议补充</div>
+            <div class="tags">
+              <span class="tag miss">MySQL</span>
+              <span class="tag miss">Maven</span>
+              <span class="tag miss">接口设计</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 结构化问题：按优先级 + 紧急红系 -->
+        <section class="panel issues issues-priority">
+          <div class="issues-head">
+            <div class="section-title">结构化问题与建议</div>
+            <span class="caption">已按优先级排序 · 越靠上越紧急</span>
+          </div>
+          <div class="issue issue-p1" data-priority="1">
+            <label class="issue-check"><input type="checkbox" checked disabled><span></span></label>
+            <div class="issue-priority-tag">P1 · 紧急</div>
+            <div class="issue-body">
+              <div class="issue-type">项目经历</div>
+              <div class="issue-desc">只描述「完成了哪些功能」，没有体现你负责的范围与贡献边界。</div>
+              <div class="issue-suggest"><b>建议</b>改为「负责活动报名与审核模块，设计 6 个 RESTful API」。</div>
+            </div>
+          </div>
+          <div class="issue issue-p1" data-priority="1">
+            <label class="issue-check"><input type="checkbox" checked disabled><span></span></label>
+            <div class="issue-priority-tag">P1 · 紧急</div>
+            <div class="issue-body">
+              <div class="issue-type">成果表达</div>
+              <div class="issue-desc">缺少可验证结果，项目价值不够具体，HR 难以快速判断能力。</div>
+              <div class="issue-suggest"><b>建议</b>补充接口数量、模块数量、性能或协作结果等量化信息。</div>
+            </div>
+          </div>
+          <div class="issue issue-p2" data-priority="2">
+            <label class="issue-check"><input type="checkbox" checked disabled><span></span></label>
+            <div class="issue-priority-tag">P2 · 重要</div>
+            <div class="issue-body">
+              <div class="issue-type">岗位匹配</div>
+              <div class="issue-desc">岗位要求中的 MySQL、Maven 未明确出现，匹配度被拉低。</div>
+              <div class="issue-suggest"><b>建议</b>在技能或项目技术栈中真实补充，避免生硬堆词。</div>
+            </div>
+          </div>
+          <div class="issue issue-p3" data-priority="3">
+            <label class="issue-check"><input type="checkbox" disabled><span></span></label>
+            <div class="issue-priority-tag">P3 · 建议</div>
+            <div class="issue-body">
+              <div class="issue-type">技能描述</div>
+              <div class="issue-desc">「了解 MyBatis」表达较弱，缺少实际使用场景。</div>
+              <div class="issue-suggest"><b>建议</b>结合项目说明用于数据访问层与基础 CRUD。</div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="review-side">
+        <!-- 匹配度：精致环形 -->
+        <section class="panel match match-v2">
+          <div class="section-title">岗位匹配度</div>
+          <div class="match-visual">
+            <div class="donut-v2" style="--pct:76">
+              <div class="donut-v2-hole">
+                <b>76%</b>
+                <small>匹配</small>
+              </div>
+            </div>
+            <ul class="match-legend">
+              <li><i class="lg-hit"></i>已覆盖关键词 <strong>4</strong></li>
+              <li><i class="lg-miss"></i>待补关键词 <strong>2</strong></li>
+            </ul>
+          </div>
+          <div class="metric"><span>技术关键词</span><strong>4 / 6</strong></div>
+          <div class="metric"><span>项目相关性</span><strong>较高</strong></div>
+          <div class="metric"><span>表达完整度</span><strong>一般</strong></div>
+        </section>
+
+        <!-- Insight：亮色 + 轮播 -->
+        <section class="insight-card" id="insightCard">
+          <div class="insight-badge">Reviewer Insight</div>
+          <div class="insight-carousel" id="insightCarousel">
+            <blockquote class="insight-quote active" data-insight>不用把简历写得更长，而是让每一段都回答：你做了什么、怎么做、结果如何。</blockquote>
+            <blockquote class="insight-quote" data-insight>量化结果比形容词更有说服力：接口数、用户量、耗时、协作规模，比「熟悉/了解」更可信。</blockquote>
+            <blockquote class="insight-quote" data-insight>岗位关键词要「长在项目里」，而不是只堆在技能栏。</blockquote>
+            <blockquote class="insight-quote" data-insight>先对齐目标岗位，再谈文笔：匹配度是筛选，表达是加分。</blockquote>
+            <blockquote class="insight-quote" data-insight>一句话能说清职责边界，比罗列十个功能点更像「能上手」的人。</blockquote>
+            <blockquote class="insight-quote" data-insight>优化不是注水：删掉空话，补上可验证的动作与结果。</blockquote>
+          </div>
+          <div class="insight-dots" id="insightDots" aria-hidden="true"></div>
+          <p class="insight-foot">下一步将基于当前诊断生成岗位定向版本，并保留原文对照。</p>
+        </section>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<div id="loading" class="loading-overlay loading-ai">
+  <div class="ai-loader">
+    <div class="ai-orb">
+      <div class="ai-ring r1"></div>
+      <div class="ai-ring r2"></div>
+      <div class="ai-ring r3"></div>
+      <div class="ai-core"></div>
+    </div>
+    <b id="loadingTitle">正在生成岗位定向版本</b>
+    <div class="caption" id="loadingCaption">基于诊断结果重写简历表达</div>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+<script src="assets/js/jobs-data.js"></script>
+<script src="assets/js/markdown-lite.js"></script>
+<script src="assets/js/deepseek-api.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

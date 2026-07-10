@@ -23,7 +23,8 @@ updated: 2026-07-10
 
 ## 待 Review
 
-- 静态原型路径：`docs/output/reports/ui-prototype/html-src/`
+- 前端源码（规范 SRC）：`resume-web/src/`
+- 历史备份说明：`docs/output/reports/ui-prototype/html-src/README.md`（已指向新路径）
 - README Showcase 四张图：`docs/images/readme/showcase-*.png`
 - 真实模式需：`python deepseek-proxy.py` + Key
 
