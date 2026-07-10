@@ -506,9 +506,21 @@ Java、Vue、MySQL、Git
 
 | 项 | 说明 |
 |---|---|
-| 终稿 PNG | `docs/images/prototype/*.png` |
-| 插图素材 | `docs/images/prototype/assets/` |
-| HTML 源（可改可复截） | `docs/output/reports/ui-prototype/html-src/` |
-| handoff | `docs/output/handoff/ui-prototype/prototype-images.md` |
-| 设计取向 | Element Plus 气质 · 主色 `#4F6BED` · 专业普通 · 不过度创新 |
-| 未做 | 移动端 9:16 变体（brief 可选） |
+| 终稿 PNG | `docs/images/prototype/*.png`（已同步 GPT 包截图） |
+| HTML 源（**标杆 / 最高优先级**） | `docs/output/reports/ui-prototype/html-src/` |
+| GPT 原始包 | `docs/output/reports/ui-prototype/ResumeWise-static-prototype.zip` |
+| GPT 解压备份 | `docs/output/reports/ui-prototype/gpt-static-prototype/` |
+| 视觉规范 | `html-src/DESIGN_SPEC.md` · `html-src/REPLICATION_PROMPT.md` |
+| 设计取向 | **以 GPT 静态包为准**：暖白编辑感 · 深墨蓝 `#101827` · 钴蓝 `#4F63EE` · 薄荷绿 `#29A97F` |
+| 说明 | 本地早期 `html-src` 专业蓝紫版已被 GPT 包覆盖，后续 Vue 复刻也以此为视觉标杆 |
+
+## 11. 当前 canonical 入口（覆盖后）
+
+```text
+html-src/index.html      首页
+html-src/optimize.html   简历输入与岗位选择
+html-src/review.html     AI 诊断
+html-src/result.html     优化结果
+html-src/assets/css/styles.css
+html-src/assets/js/app.js
+```
