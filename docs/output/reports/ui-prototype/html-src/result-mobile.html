@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>ResumeWise · 优化结果（移动端）</title>
+  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="mobile.css" />
+  <style>
+    .success-head {
+      display: flex; gap: 10px; align-items: flex-start; margin-bottom: 14px;
+    }
+    .success-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--success-bg); color: var(--success);
+      border: 1px solid #BBF7D0;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .success-head h1 { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+    .success-head p { font-size: 12px; color: var(--text-secondary); }
+    .panel {
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+      background: #fff; box-shadow: var(--shadow); margin-bottom: 12px;
+    }
+    .panel-head {
+      padding: 10px 12px; font-weight: 600; font-size: 13px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .panel-head.left { background: #F3F4F6; color: var(--text-secondary); }
+    .panel-head.right { background: var(--primary); color: #fff; }
+    .panel-body {
+      padding: 12px; font-family: "Cascadia Mono", "Consolas", "Microsoft YaHei", monospace;
+      font-size: 11.5px; line-height: 1.65; white-space: pre-wrap; color: var(--text);
+    }
+    .panel.optimized .panel-body { background: #F7F9FF; }
+    .panel.optimized { border-color: #C7D0F8; }
+    .changes {
+      border: 1px solid var(--border); border-radius: 10px; background: #fff;
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .changes-head {
+      padding: 12px; border-bottom: 1px solid var(--border);
+      font-weight: 600; font-size: 13px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .changes-body { padding: 8px 12px 12px; }
+    .changes-body ol { padding-left: 18px; color: var(--text-secondary); }
+    .changes-body li { margin: 8px 0; font-size: 12.5px; line-height: 1.5; }
+  </style>
+</head>
+<body class="mobile">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo">RW</div>
+        <div class="brand-text"><span class="brand-name">ResumeWise</span></div>
+      </div>
+      <nav class="nav-tabs">
+        <a href="home-mobile.html">首页</a>
+        <a href="optimize-mobile.html">优化</a>
+      </nav>
+      <span class="demo-badge">演示·Mock</span>
+    </div>
+  </header>
+
+  <div class="steps-bar">
+    <div class="steps-inner">
+      <div class="step done"><span class="num">✓</span><span>输入</span></div>
+      <div class="step-arrow"></div>
+      <div class="step done"><span class="num">✓</span><span>诊断</span></div>
+      <div class="step-arrow"></div>
+      <div class="step active"><span class="num">3</span><span>结果</span></div>
+    </div>
+  </div>
+
+  <main class="page">
+    <div class="success-head">
+      <div class="success-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+          <path d="M5 12l5 5L20 7"/>
+        </svg>
+      </div>
+      <div>
+        <h1>优化完成</h1>
+        <p>已针对「前端开发实习生（Vue）」生成优化版本</p>
+      </div>
+    </div>
+
+    <!-- 上下堆叠：先原始，后优化（brief） -->
+    <div class="panel">
+      <div class="panel-head left">
+        <span>原始简历</span>
+        <span class="text-xs">修改前</span>
+      </div>
+      <div class="panel-body">张三 | 计算机科学与技术 | 某某大学 2026 届
+手机：138****0000 | 邮箱：zhangsan@example.com
+
+教育背景
+某某大学 本科 计算机科学与技术 2022.09 - 2026.06
+
+项目经历
+校园二手交易平台 | 负责人
+使用 Vue 和 Spring Boot 完成前后端开发，实现商品发布、检索与下单流程。
+
+技能
+Java、Vue、MySQL、Git</div>
+    </div>
+
+    <div class="panel optimized">
+      <div class="panel-head right">
+        <span>AI 优化简历</span>
+        <span class="text-xs" style="opacity:.9;">针对岗位</span>
+      </div>
+      <div class="panel-body">张三 | 计算机科学与技术 | 某某大学 2026 届
+手机：138****0000 | 邮箱：zhangsan@example.com
+
+教育背景
+某某大学 · 本科 · 计算机科学与技术 · 2022.09 – 2026.06
+
+项目经历
+校园二手交易平台 | 前端负责人
+· 基于 Vue3 + Element Plus 完成组件化拆分与页面状态管理
+· 对接 REST 接口，覆盖商品发布 / 检索 / 下单核心链路
+· 首屏加载优化约 30%，支撑校内 500+ 活跃用户试用
+
+技能
+Vue3、JavaScript、Element Plus、组件化开发、Git、接口联调</div>
+    </div>
+
+    <section class="changes">
+      <div class="changes-head">
+        <span>修改说明（5 处）</span>
+        <span class="tag tag-primary" style="margin:0;">已展开</span>
+      </div>
+      <div class="changes-body">
+        <ol>
+          <li>项目经历补充量化成果与 Vue 组件化细节</li>
+          <li>技能栏按岗位关键词重排，突出 Vue3 与 Element Plus</li>
+          <li>自我评价改为岗位导向表述</li>
+          <li>增加与前端工程化相关的实践描述</li>
+          <li>统一时间格式与排版</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <div class="bottom-bar">
+    <div class="bottom-bar-inner" style="flex-direction:column;">
+      <button class="btn btn-primary lg" type="button" style="width:100%;">复制优化结果</button>
+      <div class="flex gap8" style="width:100%;">
+        <button class="btn btn-default" type="button" style="flex:1;">导出 .txt</button>
+        <a class="btn btn-outline" href="optimize-mobile.html" style="flex:1;text-align:center;">再优化一份</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

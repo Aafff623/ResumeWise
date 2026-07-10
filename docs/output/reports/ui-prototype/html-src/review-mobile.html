@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>ResumeWise · AI 诊断（移动端）</title>
+  <link rel="stylesheet" href="common.css" />
+  <link rel="stylesheet" href="mobile.css" />
+  <style>
+    .score-stack { display: flex; flex-direction: column; gap: 10px; }
+    .score-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px; text-align: center; box-shadow: var(--shadow);
+    }
+    .score-card.main { background: linear-gradient(180deg,#fff,#F7F9FF); border-color:#D6DEFA; }
+    .score-card h3 { font-size: 13px; color: var(--text-secondary); margin-bottom: 10px; }
+    .score-num { font-size: 32px; font-weight: 700; color: var(--primary); }
+    .score-num small { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+    .score-sub { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
+    .score-formula {
+      margin-top: 10px; font-size: 11px; color: var(--text-secondary);
+      background: var(--primary-light); border-radius: 6px; padding: 6px 8px; display: inline-block;
+    }
+    .score-ring {
+      width: 96px; height: 96px; margin: 0 auto;
+      background: conic-gradient(var(--primary) 0% 78%, #E5E7EB 78% 100%);
+    }
+    .score-ring::after { inset: 9px; }
+    .score-ring-inner .val { font-size: 24px; }
+    .match-pct { font-size: 16px; font-weight: 700; color: var(--primary); }
+    .summary-text {
+      font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+      background: #FAFBFC; border: 1px solid var(--border); border-radius: 8px; padding: 12px;
+    }
+    .issue-item {
+      border: 1px solid var(--border); border-radius: 8px; padding: 12px;
+      background: #fff; margin-bottom: 8px;
+    }
+    .issue-desc { font-weight: 600; font-size: 13px; margin: 6px 0 4px; }
+    .issue-suggest { font-size: 12px; color: var(--text-secondary); }
+    .issue-suggest::before { content: "建议："; color: var(--text-muted); }
+    .kw-group-title { font-size: 12px; font-weight: 600; margin: 12px 0 6px; color: var(--text-secondary); }
+  </style>
+</head>
+<body class="mobile">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-logo">RW</div>
+        <div class="brand-text"><span class="brand-name">ResumeWise</span></div>
+      </div>
+      <nav class="nav-tabs">
+        <a href="home-mobile.html">首页</a>
+        <a href="optimize-mobile.html">优化</a>
+      </nav>
+      <span class="demo-badge">演示·Mock</span>
+    </div>
+  </header>
+
+  <div class="steps-bar">
+    <div class="steps-inner">
+      <div class="step done"><span class="num">✓</span><span>输入</span></div>
+      <div class="step-arrow"></div>
+      <div class="step active"><span class="num">2</span><span>诊断</span></div>
+      <div class="step-arrow"></div>
+      <div class="step"><span class="num">3</span><span>结果</span></div>
+    </div>
+  </div>
+
+  <main class="page">
+    <div class="page-header page-header-row">
+      <div>
+        <h1>AI 诊断结果</h1>
+        <p>前端开发实习生（Vue） · 某科技公司</p>
+      </div>
+      <span class="badge-ok">诊断完成</span>
+    </div>
+
+    <div class="score-stack mb16">
+      <div class="score-card main">
+        <h3>综合评分</h3>
+        <div class="score-ring">
+          <div class="score-ring-inner">
+            <div class="val">78</div>
+            <div class="unit">/ 100</div>
+          </div>
+        </div>
+        <div class="score-formula">关键词匹配 40% + AI 内容 60%</div>
+      </div>
+      <div class="score-card">
+        <h3>关键词匹配分</h3>
+        <div class="score-num">85<small> 分</small></div>
+        <div class="score-sub">后端本地计算</div>
+      </div>
+      <div class="score-card">
+        <h3>AI 内容分</h3>
+        <div class="score-num">72<small> 分</small></div>
+        <div class="score-sub">大模型评估</div>
+      </div>
+    </div>
+
+    <section class="card mb12">
+      <div class="card-title">关键词覆盖</div>
+      <div class="flex justify-between items-center mb8">
+        <span class="text-sm secondary">岗位匹配度</span>
+        <span class="match-pct">72%</span>
+      </div>
+      <div class="progress"><div class="progress-bar" style="width:72%"></div></div>
+      <div class="kw-group-title">已匹配关键词</div>
+      <div>
+        <span class="tag tag-success">Vue</span>
+        <span class="tag tag-success">JavaScript</span>
+        <span class="tag tag-success">Git</span>
+      </div>
+      <div class="kw-group-title">缺失关键词</div>
+      <div>
+        <span class="tag tag-danger">TypeScript</span>
+        <span class="tag tag-danger">单元测试</span>
+        <span class="tag tag-danger">Webpack</span>
+      </div>
+    </section>
+
+    <section class="card mb12">
+      <div class="card-title mb8">AI 诊断摘要</div>
+      <div class="summary-text">
+        简历具备基础前端技能，但项目描述偏笼统，缺少量化成果与岗位关键词覆盖，建议补充组件化与工程化实践。
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title mb12">诊断问题</div>
+      <div class="issue-item">
+        <span class="tag tag-warning" style="margin:0;">表达问题</span>
+        <div class="issue-desc">项目经历缺少量化数据</div>
+        <div class="issue-suggest">补充用户量、性能提升百分比等</div>
+      </div>
+      <div class="issue-item">
+        <span class="tag tag-info" style="margin:0;">项目经历</span>
+        <div class="issue-desc">未体现 Vue 组件化实践</div>
+        <div class="issue-suggest">写明组件拆分与状态管理方案</div>
+      </div>
+      <div class="issue-item" style="margin-bottom:0;">
+        <span class="tag tag-purple" style="margin:0;">技能描述</span>
+        <div class="issue-desc">技能栏堆砌，未与岗位对齐</div>
+        <div class="issue-suggest">突出 Vue3、Element Plus、接口联调</div>
+      </div>
+    </section>
+  </main>
+
+  <div class="bottom-bar">
+    <div class="bottom-bar-inner" style="flex-direction:column;">
+      <a class="btn btn-primary lg" href="result-mobile.html" style="width:100%;">生成优化版本</a>
+      <a class="btn btn-outline" href="optimize-mobile.html" style="width:100%;">返回修改简历</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -30,3 +30,42 @@ docs: initialize ResumeWise repo assets (project-init Phase A–C)
 - docs/output: readme-diagrams brief
 - .gitignore
 ```
+
+---
+
+## 2. ui-prototype / prototype-images
+
+- **类型**：docs / design
+- **范围**：前端界面原型出图
+- **说明**：按 `ui-prototype-brief.md` 产出 4 主页面 + 2 状态变体高保真原型图；HTML/CSS 可复刻源 + Playwright 截图；AI 补充 Hero 插图；风格专业普通（Element Plus 气质）。
+- **文件**：
+  - `docs/images/prototype/prototype-home.png`
+  - `docs/images/prototype/prototype-optimize.png`
+  - `docs/images/prototype/prototype-optimize-disabled.png`
+  - `docs/images/prototype/prototype-review.png`
+  - `docs/images/prototype/prototype-review-loading.png`
+  - `docs/images/prototype/prototype-result.png`
+  - `docs/images/prototype/assets/hero-illustration.jpg`
+  - `docs/images/prototype/assets/feature-icons.jpg`
+  - `docs/output/reports/ui-prototype/html-src/*`
+  - `docs/output/reports/ui-prototype/ui-prototype-brief.md`（状态与自检更新）
+  - `docs/output/handoff/ui-prototype/prototype-images.md`
+- **状态**：awaiting-review（用户 Review 中；尚未 commit）
+
+### 建议 commit 信息（Web 桌面 · 用户已授权分批 commit）
+
+```
+docs(ui-prototype): add desktop high-fidelity UI prototypes
+
+- 4 main pages + disabled/loading variants (PNG)
+- HTML/CSS sources + AI hero assets
+```
+
+### 建议 commit 信息（移动端）
+
+```
+docs(ui-prototype): add mobile UI prototype screenshots
+
+- home/optimize/review/result mobile (390px)
+- mobile.css + mobile HTML sources + preview index
+```

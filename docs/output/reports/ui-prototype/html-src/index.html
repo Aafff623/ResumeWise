@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ResumeWise · 原型图入口</title>
+  <link rel="stylesheet" href="common.css" />
+  <style>
+    body { min-height: 100vh; }
+    .entry {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 48px 24px 64px;
+    }
+    .entry h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .entry .lead {
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .entry .note {
+      font-size: 13px;
+      color: var(--text-muted);
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .group {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .group h2 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+    .group p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .links { display: flex; flex-direction: column; gap: 8px; }
+    .links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      background: #FAFBFC;
+      font-size: 14px;
+    }
+    .links a:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+    .links a span { font-size: 12px; color: var(--text-muted); }
+    .links a:hover span { color: var(--primary); }
+    .tag-row { margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner" style="max-width:880px;">
+      <div class="brand">
+        <div class="brand-logo">RW</div>
+        <div class="brand-text">
+          <span class="brand-name">ResumeWise</span>
+          <span class="brand-sub">UI 原型预览入口</span>
+        </div>
+      </div>
+      <span class="demo-badge">演示模式 · AI Mock</span>
+    </div>
+  </header>
+
+  <main class="entry">
+    <h1>原型图预览入口</h1>
+    <p class="lead">
+      这是<strong>静态 HTML 高保真原型</strong>，不是 Vue 业务项目。无需登录、无后端依赖。
+      静态 PNG 也可在 <code>docs/images/prototype/</code> 直接双击打开。
+    </p>
+    <div class="note">
+      <strong>产品范围说明：</strong>按 CONTEXT / brief，本系统<strong>不做登录注册</strong>。
+      本页是原型「目录入口」，不是登录页。若你确实需要演示用登录壳，请在 Review 时明确说，再单独加一版（与业务范围冲突需你确认）。
+    </div>
+    <div class="tag-row">
+      <span class="tag tag-primary" style="margin:0;">桌面端 1440 宽</span>
+      <span class="tag tag-info" style="margin:0;">移动端 390 宽</span>
+      <span class="tag tag-gray" style="margin:0;">无数据库 · 无鉴权</span>
+    </div>
+
+    <div class="grid">
+      <section class="group">
+        <h2>桌面端 Web</h2>
+        <p>主流程 4 页 + 2 个状态变体</p>
+        <div class="links">
+          <a href="home.html">首页 <span>home</span></a>
+          <a href="optimize.html">开始优化（已填充） <span>optimize</span></a>
+          <a href="optimize-disabled.html">开始优化（禁用态） <span>disabled</span></a>
+          <a href="review.html">AI 诊断结果 <span>review</span></a>
+          <a href="review-loading.html">AI 分析中 <span>loading</span></a>
+          <a href="result.html">优化结果对照 <span>result</span></a>
+        </div>
+      </section>
+
+      <section class="group">
+        <h2>移动端</h2>
+        <p>上下堆叠布局 · 9:16 画布</p>
+        <div class="links">
+          <a href="home-mobile.html">首页（移动） <span>home</span></a>
+          <a href="optimize-mobile.html">开始优化（移动） <span>optimize</span></a>
+          <a href="review-mobile.html">AI 诊断（移动） <span>review</span></a>
+          <a href="result-mobile.html">优化结果（移动） <span>result</span></a>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
